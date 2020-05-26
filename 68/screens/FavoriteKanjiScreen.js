@@ -28,11 +28,3 @@ export default class FavoriteKanjiScreen extends React.Component {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     paddingLeft: 16,
-//     paddingRight: 16,
-//     paddingTop: 30
-//   }
-// });

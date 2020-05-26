@@ -31,6 +31,7 @@ export default function Login(props) {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   title: {
     marginBottom: screen(20),

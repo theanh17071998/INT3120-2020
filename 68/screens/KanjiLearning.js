@@ -30,10 +30,10 @@ export default class KanjiLearning extends React.Component {
     this.state = {
       images: [
         { id: 1, url: menu, name: 'Kanji chi tiết' },
-        { id: 2, url: flashcard, name: 'Học với Flashcards' },
-        { id: 3, url: test, name: 'Luyện tập qua bài Tests' },
-        { id: 4, url: challenge1, name: 'Thử thách Kanji 1' },
-        { id: 5, url: challenge2, name: 'Thử thách Kanji 2' }
+        { id: 2, url: flashcard, name: 'Học với flashcards' },
+        { id: 3, url: test, name: 'Luyện tập qua bài test' },
+        { id: 4, url: challenge1, name: 'Thử thách kanji 1' },
+        { id: 5, url: challenge2, name: 'Thử thách kanji 2' }
       ]
     };
   }

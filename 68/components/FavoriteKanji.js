@@ -47,6 +47,7 @@ export default function FavoriteKanji() {
         <Text style={styles.titleInput}>
           Âm kun
         </Text>
+
         <TextInput
           style={styles.textInput}
           placeholder="Nhập âm kun"

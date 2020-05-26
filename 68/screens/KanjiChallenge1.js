@@ -4,9 +4,13 @@ import {
   StyleSheet,
   Text,
   View,
+  // Dimensions
 } from 'react-native';
 import KanjiChallenge from '../components/KanjiChallenge';
 import ProgressComponent from '../components/ProgressComponent';
+
+// const deviceWidth = Dimensions.get('window').width;
+// const screen = (percent) => deviceWidth * percent / 100;
 
 export default class KanjiChallenge1 extends React.Component {
   static navigationOptions = () => ({
@@ -21,6 +25,8 @@ export default class KanjiChallenge1 extends React.Component {
     },
   });
 
+  isUnmount = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -28,10 +34,9 @@ export default class KanjiChallenge1 extends React.Component {
       progress: 0,
     };
   }
-  isUnmount = false;
+
   componentDidMount() {
-    if(this.isUnmount === false)
-    {
+    if (this.isUnmount === false) {
       this.timer();
       this.dataRamdom = this.randomData();
       this.result = this.listHantu.map(() => false);
@@ -64,11 +69,12 @@ export default class KanjiChallenge1 extends React.Component {
   nextQuestion = () => {
     const { questionIndex } = this.state;
     if (this.state.questionIndex < this.listHantu.length - 1) {
-      if(this.isUnmount == false)
-      this.setState({
-        questionIndex: questionIndex + 1,
-        progress: 0
-      });
+      if (this.isUnmount === false) {
+        this.setState({
+          questionIndex: questionIndex + 1,
+          progress: 0
+        });
+      }
       this.dataRamdom = this.randomData();
     } else {
       clearInterval(this.setInterval);
@@ -80,19 +86,21 @@ export default class KanjiChallenge1 extends React.Component {
     this.setInterval = setInterval(() => {
       const { progress } = this.state;
       if (this.state.progress < 100) {
-        if(this.isUnmount == false)
-
-        this.setState({
-          progress: progress + 0.2
-        });
+        if (this.isUnmount === false) {
+          this.setState({
+            progress: progress + 0.2
+          });
+        }
       } else {
         this.nextQuestion();
       }
     }, 10);
   }
-  componentWillUnmount = ()=>{
+
+  componentWillUnmount = () => {
     this.isUnmount = true;
   }
+
   render() {
     const kanjiList = this.props.navigation.getParam('kanjiList');
     this.listHantu = kanjiList.map((kanji) => kanji.hantu);
@@ -138,8 +146,8 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'center',
     flexWrap: 'wrap',
-    marginHorizontal: 8
   },
   Word: {
     flex: 0,

@@ -15,7 +15,7 @@ const screen = (percent) => (deviceWidth * percent) / 100;
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = () => ({
-    title: 'Login',
+   // title: 'Login',
     headerTitleAlign: 'center',
     headerTitleStyle: {
       color: 'white',
@@ -38,13 +38,14 @@ export default class LoginScreen extends React.Component {
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged((user)=> {
       if (user) {
+        this.props.navigation.setParams({ title: 'Updated!' })
         this.setState({stateLogin: true, ready: true });
         console.log(user);
-        this.ready = true;
         //this.navigation.push('Levels');
         // User is signed in.
       } else {
         // No user is signed in.
+        this.setState({ready: true });
       }
     });
     
@@ -65,9 +66,8 @@ export default class LoginScreen extends React.Component {
         );
         // Sign in with credential from the Google user.
         firebase.auth().signInWithCredential(credential);
-        // console.log(result);
-        // return result.accessToken;
-        // this.navigation.navigate('Levels');
+        this.navigation.setParams({ title: 'Updated!' })
+        this.setState({stateLogin: true});
       }
       return { cancelled: true };
     } catch (e) {
@@ -89,7 +89,8 @@ export default class LoginScreen extends React.Component {
         firebase.auth().signInWithCredential(credential)
           .then((data) => {
             console.log(data);
-           // this.navigation.navigate('Levels');
+            this.navigation.setParams({ title: 'Updated!' })
+            this.setState({stateLogin: true});
           })
           .catch((err) => console.log(err));
       } else {
@@ -139,7 +140,6 @@ export default class LoginScreen extends React.Component {
         </Login>
       );
     } else {
-      //this.navigation.setParams({ title: 'Level' }) 
       return (<Levels navigation={this.navigation}/>)
     }
    
