@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
+
 const screen = (percent) => (deviceWidth * percent) / 100;
 export default function FavoriteKanji() {
   return (
@@ -98,19 +100,19 @@ const styles = StyleSheet.create({
     marginLeft: '2%'
   },
   contentInput: {
+    marginHorizontal: 40,
+    color: '#006265',
     marginBottom: screen(3)
   },
   textInput: {
-    width: screen(94),
-    borderColor: 'gray',
+    borderColor: '#006265',
     borderWidth: 1,
     height: screen(12),
-    marginLeft: screen(3),
     borderRadius: 5,
     padding: 10,
   },
   titleInput: {
-    marginLeft: screen(3),
+    color: '#006265',
     fontSize: 17,
     marginBottom: 3,
   },
