@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   StyleSheet,
-  // FlatList,
+  FlatList,
   View
 } from 'react-native';
 
@@ -35,50 +35,20 @@ export default class Levels extends React.Component {
     const { categories } = this.state;
     return (
       <View style={styles.container}>
-        {/* <FlatList
+        <FlatList
           data={categories}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <CategoryListItem
               level={item}
               onPress={() => navigation.navigate('KanjiGroup', {
-                kanjiGroupName: item.name
+                kanjiGroupName: item.name,
+                myKanji: (index === 4)
               })}
             />
           )}
           keyExtractor={(item) => `${item.id}`}
           contentContainerStyle={styles.container}
-        /> */}
-        <CategoryListItem
-          level={categories[0]}
-          onPress={() => navigation.navigate('KanjiGroup', {
-            kanjiGroupName: categories[0].name
-          })}
         />
-        <CategoryListItem
-          level={categories[1]}
-          onPress={() => navigation.navigate('KanjiGroup', {
-            kanjiGroupName: categories[1].name
-          })}
-        />
-        <CategoryListItem
-          level={categories[2]}
-          onPress={() => navigation.navigate('KanjiGroup', {
-            kanjiGroupName: categories[2].name
-          })}
-        />
-        <CategoryListItem
-          level={categories[3]}
-          onPress={() => navigation.navigate('KanjiGroup', {
-            kanjiGroupName: categories[3].name
-          })}
-        />
-        <CategoryListItem
-          level={categories[4]}
-          onPress={() => navigation.navigate('FavoriteKanjiScreen', {
-            kanjiGroupName: categories[4].name
-          })}
-        />
-
       </View>
     );
   }

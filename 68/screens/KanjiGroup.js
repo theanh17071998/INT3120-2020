@@ -4,9 +4,15 @@ import {
   StyleSheet,
   FlatList,
   View,
+  Image,
+  Text,
+  TouchableOpacity
 } from 'react-native';
 import firebase from '../config/firebase';
 import WordsListItem from '../components/WordListItem';
+
+import imgProfile from '../assets/userProfile.png';
+import imgAdd from '../assets/add.png';
 
 const db = firebase.firestore();
 export default class kanjiGroup extends React.Component {
@@ -20,6 +26,20 @@ export default class kanjiGroup extends React.Component {
     headerStyle: {
       backgroundColor: '#006265',
     },
+    headerRight: () => (
+      <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+        {
+          navigation.getParam('myKanji') ? (
+            <TouchableOpacity onPress={() => { navigation.navigate('FavoriteKanjiScreen'); }}>
+              <Image source={imgAdd} style={{ width: 30, height: 30, marginRight: 10 }} />
+            </TouchableOpacity>
+          ) : <View />
+        }
+        <TouchableOpacity onPress={() => { navigation.navigate('ProfileScreen'); }}>
+          <Image source={imgProfile} style={{ width: 30, height: 30, marginRight: 10 }} />
+        </TouchableOpacity>
+      </View>
+    )
   });
 
   constructor(props) {
@@ -45,20 +65,22 @@ export default class kanjiGroup extends React.Component {
 
   render() {
     const { navigation } = this.props;
+    const { lsGroup } = this.state;
     return (
       <View style={styles.container}>
         <FlatList
-          // eslint-disable-next-line react/destructuring-assignment
-          data={this.state.lsGroup}
+          data={lsGroup}
           renderItem={(obj, index) => (
             <WordsListItem
               kanji={obj}
               key={index}
               navigation={navigation}
+              isMyKanji={navigation.getParam('myKanji') === true}
             />
           )}
           keyExtractor={(obj, index) => `${index}`}
         />
+
       </View>
     );
   }

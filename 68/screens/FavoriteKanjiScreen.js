@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 
 import FavoriteKanji from '../components/FavoriteKanji';
+import FormInputListKanji from './../components/FormInputListKanji'
 
 export default class FavoriteKanjiScreen extends React.Component {
   static navigationOptions = {
@@ -23,6 +24,7 @@ export default class FavoriteKanjiScreen extends React.Component {
   render() {
     return (
       <View>
+        <FormInputListKanji/>
         <FavoriteKanji />
       </View>
     );

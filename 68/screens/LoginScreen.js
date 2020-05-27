@@ -15,7 +15,7 @@ const screen = (percent) => (deviceWidth * percent) / 100;
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = () => ({
-   // title: 'Login',
+    // title: 'Login',
     headerTitleAlign: 'center',
     headerTitleStyle: {
       color: 'white',
@@ -25,32 +25,39 @@ export default class LoginScreen extends React.Component {
       backgroundColor: '#006265',
     },
   });
-  constructor(props){
-    super(props);
-    this.state = {
-      ready : false,
-      stateLogin: false,
-    }
-  }
 
+  // eslint-disable-next-line react/destructuring-assignment
   navigation = this.props.navigation;
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      ready: false,
+      stateLogin: false,
+    };
+  }
+
+  static getDerivedStateFromProps(newProps, currentState) {
+    if (newProps.navigation.getParam('logout') !== currentState.logout) {
+      return ({
+        stateLogin: !newProps.navigation.getParam('logout')
+      });
+    }
+    return null;
+  }
+
   componentDidMount = () => {
-    firebase.auth().onAuthStateChanged((user)=> {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.props.navigation.setParams({ title: 'Updated!' })
-        this.setState({stateLogin: true, ready: true });
-        console.log(user);
-        //this.navigation.push('Levels');
-        // User is signed in.
+        this.setState({ stateLogin: true, ready: true });
+        this.navigation.setParams({ logout: false });
       } else {
         // No user is signed in.
-        this.setState({ready: true });
+        this.setState({ ready: true });
       }
     });
-    
   }
-  
+
   signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
@@ -59,15 +66,14 @@ export default class LoginScreen extends React.Component {
         scopes: ['profile'],
       });
       if (result.type === 'success') {
-        console.log('asdasd');
         const credential = firebase.auth.GoogleAuthProvider.credential(
           result.idToken,
           result.accessToken,
         );
         // Sign in with credential from the Google user.
         firebase.auth().signInWithCredential(credential);
-        this.navigation.setParams({ title: 'Updated!' })
-        this.setState({stateLogin: true});
+        this.navigation.setParams({ title: 'Updated!' });
+        this.setState({ stateLogin: true });
       }
       return { cancelled: true };
     } catch (e) {
@@ -89,8 +95,8 @@ export default class LoginScreen extends React.Component {
         firebase.auth().signInWithCredential(credential)
           .then((data) => {
             console.log(data);
-            this.navigation.setParams({ title: 'Updated!' })
-            this.setState({stateLogin: true});
+            this.navigation.setParams({ title: 'Updated!' });
+            this.setState({ stateLogin: true });
           })
           .catch((err) => console.log(err));
       } else {
@@ -109,18 +115,19 @@ export default class LoginScreen extends React.Component {
       // An error happened.
     });
   }
-  ComponentIndicator = ()=> {
-    return (
-      <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
+
+  ComponentIndicator = () => (
+    <View style={[styles.container, styles.horizontal]}>
+      <ActivityIndicator size="large" color="#0000ff" />
+    </View>
+  )
+
   render() {
-    if(this.state.ready === false){
-      return (<this.ComponentIndicator/>)
+    const { stateLogin, ready } = this.state;
+    if (ready === false) {
+      return (<this.ComponentIndicator />);
     }
-    else if(this.state.stateLogin === false) {
+    if (stateLogin === false) {
       return (
         <Login>
           <View style={styles.button}>
@@ -139,10 +146,8 @@ export default class LoginScreen extends React.Component {
           </View>
         </Login>
       );
-    } else {
-      return (<Levels navigation={this.navigation}/>)
     }
-   
+    return (<Levels navigation={this.navigation} />);
   }
 }
 const styles = StyleSheet.create({
@@ -153,11 +158,11 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   horizontal: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     padding: 10
   }
 });

@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   Text,
   View,
   StyleSheet,
+  TextInput,
   TouchableOpacity,
   YellowBox
 } from 'react-native';
@@ -15,36 +16,31 @@ import WordItem from './WordItem';
 
 YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
 console.disableYellowBox = true;
-export default function WordListItem(props) {
-  const { kanji, isMyKanji } = props;
+export default function FormInputListKanji(props) {
+  const [isEditKanjiGroupName, setIsKanjiGroupName] = useState(false);
   return (
     <View style={styles.container}>
       <View>
         <View style={styles.header}>
-          <Text style={styles.title}>{kanji ? kanji.item.groupName : 'Kanji'}</Text>
           {
-            isMyKanji
-              ? (
-                <TouchableOpacity activeOpacity={0.5}>
-                  <Image source={imgEdit} style={styles.editImage} />
-                </TouchableOpacity>
-              ) : <View />
+                isEditKanjiGroupName ? <View><TextInput /></View> : <Text onPress={() => setIsKanjiGroupName(true)} style={styles.title}>kanji group name</Text>
           }
+
+
+          <TouchableOpacity activeOpacity={0.5}>
+            <Image source={imgEdit} style={styles.editImage} />
+          </TouchableOpacity>
+
           <TouchableOpacity
             activeOpacity={0.5}
             onPress={() => {
-              props.navigation.navigate('KanjiLearning',
-                {
-                  kanjiGroup: kanji,
-                  kanjiLearningName: kanji.item.groupName
-                });
             }}
           >
             <Image source={rightArrow} style={styles.rightArrowImage} />
           </TouchableOpacity>
         </View>
         <View style={styles.listItem}>
-          {
+          {/*
               kanji ? kanji.item.kanjiList.map((object, index) => (
                 <WordItem
                   key={index.toString()}
@@ -52,7 +48,7 @@ export default function WordListItem(props) {
                   object={object}
                   navigation={props.navigation}
                 />
-              )) : <Text />
+              )) : <Text />*/
             }
         </View>
       </View>
