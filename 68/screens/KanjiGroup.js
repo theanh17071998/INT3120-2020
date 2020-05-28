@@ -5,7 +5,6 @@ import {
   FlatList,
   View,
   Image,
-  Text,
   TouchableOpacity
 } from 'react-native';
 import firebase from '../config/firebase';

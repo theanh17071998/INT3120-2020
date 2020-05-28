@@ -4,9 +4,11 @@ import {
   View,
 } from 'react-native';
 
-import WordItem from '../components/WordItem'; // dung o show list kanji
+import WordItem from '../components/WordItem';
 
 import HearderInputListKanji from '../components/HearderInputListKanji';
+import Provider, { Context } from './FavoriteKanjiScreen/context';
+
 
 export default class FavoriteKanjiScreen extends React.Component {
   static navigationOptions = {
@@ -21,33 +23,26 @@ export default class FavoriteKanjiScreen extends React.Component {
     },
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      nameKanjiGroup: '',
-      listKanji: []
-    };
-  }
-
   render() {
-    const { nameKanjiGroup, listKanji } = this.state;
     const { navigation } = this.props;
     return (
-      <View style={styles.container}>
-        <HearderInputListKanji nameKanjiGroup={nameKanjiGroup} />
-        <View style={styles.listKanji}>
-          {
-            listKanji.map((kanji, index) => (
-              <WordItem
-                key={index.toString()}
-                text={kanji.kanji}
-                object={kanji}
-                navigation={navigation}
-              />
-            ))
-          }
+      <Provider>
+        <View style={styles.container}>
+          <HearderInputListKanji />
+          <View style={styles.listKanji}>
+            <Context.Consumer>
+              {({ stateListKanji }) => stateListKanji.map((kanji, index) => (
+                <WordItem
+                  key={index.toString()}
+                  text={kanji.kanji}
+                  object={kanji}
+                  navigation={navigation}
+                />
+              ))}
+            </Context.Consumer>
+          </View>
         </View>
-      </View>
+      </Provider>
     );
   }
 }
