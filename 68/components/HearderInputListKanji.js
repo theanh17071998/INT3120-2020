@@ -1,68 +1,84 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Image,
-  Text,
   Modal,
   View,
   StyleSheet,
   TextInput,
-  TouchableHighlight,
   TouchableOpacity,
   Alert
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 import rightArrow from '../assets/right-arrow.png';
 import imgEdit from '../assets/edit.png';
+import FavoriteKanji from './FavoriteKanji';
+import { Context } from '../screens/FavoriteKanjiScreen/context';
+
 
 export default function HearderInputListKanji() {
-  const [isModalInput, setIsModalInput] = useState(false);
   const ModalInputKanji = () => (
-    <Modal
-      animationType="fade"
-      transparent
-      statusBarTranslucent
-      visible={isModalInput}
-      onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
-      }}
-    >
-      <View style={{ backgroundColor: 'gray' }}>
-        <View style={styles.modalView}>
-          <TouchableHighlight
-            style={{ ...styles.openButton, backgroundColor: '#2196F3' }}
-            onPress={() => {
-              setIsModalInput(!isModalInput);
+    <Context.Consumer>
+      {
+        ({ stateModal }) => (
+          <Modal
+            animationType="fade"
+            transparent
+            statusBarTranslucent
+            visible={stateModal}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
             }}
           >
-            <Text style={styles.textStyle}>Hide Modal</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    </Modal>
+            <KeyboardAwareScrollView style={{ backgroundColor: 'gray' }}>
+              <View style={styles.modalView}>
+                <FavoriteKanji />
+              </View>
+            </KeyboardAwareScrollView>
+          </Modal>
+        )
+      }
+    </Context.Consumer>
   );
   return (
-    <View style={styles.header}>
-      <ModalInputKanji />
-      <View style={styles.title}>
-        <TextInput style={styles.input} placeholder="Nhập tên nhóm kanji" />
-      </View>
-      <TouchableOpacity
-        activeOpacity={0.5}
-        onPress={() => {
-          setIsModalInput(true);
-        }}
-      >
-        <Image source={imgEdit} style={styles.editImage} />
-      </TouchableOpacity>
+    <Context.Consumer>
+      {
+      ({ stateNameKanjiGroup, setNameKanjiGroup, setStateModal }) => (
+        <View style={styles.header}>
+          <ModalInputKanji />
+          <View style={styles.title}>
 
-      <TouchableOpacity
-        activeOpacity={0.5}
-        onPress={() => {
-        }}
-      >
-        <Image source={rightArrow} style={styles.rightArrowImage} />
-      </TouchableOpacity>
-    </View>
+
+            <TextInput
+              style={styles.input}
+              placeholder="Nhập tên nhóm kanji"
+              value={stateNameKanjiGroup}
+              onChangeText={(value) => setNameKanjiGroup(value)}
+            />
+
+
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => {
+              setStateModal(true);
+            }}
+          >
+            <Image source={imgEdit} style={styles.editImage} />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => {
+            }}
+          >
+            <Image source={rightArrow} style={styles.rightArrowImage} />
+          </TouchableOpacity>
+        </View>
+      )
+      }
+    </Context.Consumer>
   );
 }
 const styles = StyleSheet.create({
