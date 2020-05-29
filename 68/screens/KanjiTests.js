@@ -38,11 +38,12 @@ export default class KanjiTests extends React.Component {
   nextQuestion = () => {
     if (this.isMounted === true) {
       const { questionIndex } = this.state;
-      if(this.isUnmount === false)
-      this.setState({
-        questionIndex: (questionIndex + 1) % this.answers.length,
-        indexRan: Math.floor(Math.random() * 4)
-      });
+      if (this.isUnmount === false) {
+        this.setState({
+          questionIndex: (questionIndex + 1) % this.answers.length,
+          indexRan: Math.floor(Math.random() * 4)
+        });
+      }
     }
   }
 
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginHorizontal: 8,

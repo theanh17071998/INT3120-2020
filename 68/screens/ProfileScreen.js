@@ -3,8 +3,11 @@ import {
   ActivityIndicator, StyleSheet, Dimensions, View
 } from 'react-native';
 import { Image, ListItem, Button } from 'react-native-elements';
+import firebase from 'firebase';
 
-import avatar from '../assets/HoaHuongDuong.jpg';
+
+// import avatar from '../assets/HoaHuongDuong.jpg';
+import userProFile from '../assets/user.png';
 import EmailProfile from '../assets/email.png';
 
 const deviceWidth = Dimensions.get('window').width;
@@ -23,17 +26,57 @@ export default class ProfileScreen extends React.Component {
     },
   });
 
+  constructor(props) {
+    super(props);
+    this.state = { infoUser: { username: 'vantu' } };
+  }
+
+  componentDidMount = () => {
+    // const { navigation } = this.props;
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ infoUser: user });
+      } else {
+        // No user is signed in.
+      }
+    });
+  }
+
+  logout = () => {
+    const { navigation } = this.props;
+    firebase.auth().signOut().then(() => {
+      navigation.navigate('LoginScreen', { logout: true });
+      // Sign-out successful.
+    }).catch((error) => {
+      console.log(error);
+      // An error happened.
+    });
+  }
+
   render() {
+    const { infoUser } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.ava}>
           <Image
-            source={avatar}
+            source={{ uri: infoUser.photoURL }}
             style={styles.image}
             PlaceholderContent={<ActivityIndicator />}
           />
         </View>
         <View>
+          <ListItem
+            leftAvatar={(
+              <Image
+                source={userProFile}
+                style={styles.email}
+                PlaceholderContent={<ActivityIndicator />}
+              />
+            )}
+            title="Tên của bạn"
+            subtitle={infoUser.displayName}
+            bottomDivider
+          />
           <ListItem
             leftAvatar={(
               <Image
@@ -43,11 +86,12 @@ export default class ProfileScreen extends React.Component {
               />
             )}
             title="Email"
-            subtitle="nguyenvantuhym@gmail.com"
+            subtitle={infoUser.email}
             bottomDivider
           />
         </View>
         <Button
+          onPress={this.logout}
           title="Logout"
           type="clear"
           titleStyle={styles.logout}
@@ -61,12 +105,12 @@ const styles = StyleSheet.create({
     marginHorizontal: screen(2)
   },
   image: {
-    width: screen(40),
-    height: screen(40),
+    width: screen(30),
+    height: screen(30),
     borderRadius: screen(50),
   },
   ava: {
-    paddingLeft: screen(30),
+    paddingLeft: screen(35),
     paddingTop: screen(2),
     marginBottom: screen(5)
   },
@@ -75,7 +119,7 @@ const styles = StyleSheet.create({
     height: screen(10),
   },
   logout: {
-    color: '#006265',
+    color: '#e22525',
     fontSize: 20
   }
 });

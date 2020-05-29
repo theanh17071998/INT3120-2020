@@ -9,31 +9,42 @@ import {
   YellowBox
 } from 'react-native';
 import rightArrow from '../assets/right-arrow.png';
+import imgEdit from '../assets/edit.png';
+
 import WordItem from './WordItem';
 
 YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
 console.disableYellowBox = true;
 export default function WordListItem(props) {
-  const { kanji } = props;
+  const { kanji, isMyKanji } = props;
   return (
-    <TouchableOpacity
-      activeOpacity={0.5}
-      onPress={() => {
-        props.navigation.navigate('KanjiLearning',
+    <View style={styles.container}>
+      <View>
+        <View style={styles.header}>
+          <Text style={styles.title}>{kanji ? kanji.item.groupName : 'Kanji'}</Text>
           {
-            kanjiGroup: kanji,
-            kanjiLearningName: kanji.item.groupName
-          });
-      }}
-    >
-      <View style={styles.container}>
-        <View>
-          <View style={styles.header}>
-            <Text style={styles.title}>{kanji ? kanji.item.groupName : 'Kanji'}</Text>
+            isMyKanji
+              ? (
+                <TouchableOpacity activeOpacity={0.5}>
+                  <Image source={imgEdit} style={styles.editImage} />
+                </TouchableOpacity>
+              ) : <View />
+          }
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => {
+              props.navigation.navigate('KanjiLearning',
+                {
+                  kanjiGroup: kanji,
+                  kanjiLearningName: kanji.item.groupName
+                });
+            }}
+          >
             <Image source={rightArrow} style={styles.rightArrowImage} />
-          </View>
-          <View style={styles.listItem}>
-            {
+          </TouchableOpacity>
+        </View>
+        <View style={styles.listItem}>
+          {
               kanji ? kanji.item.kanjiList.map((object, index) => (
                 <WordItem
                   key={index.toString()}
@@ -43,10 +54,10 @@ export default function WordListItem(props) {
                 />
               )) : <Text />
             }
-          </View>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
+
   );
 }
 const styles = StyleSheet.create({
@@ -66,17 +77,26 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'flex-end',
+    marginBottom: 8
   },
   title: {
-    fontSize: 17,
-    marginBottom: 8,
+    flex: 7,
+    fontSize: 16,
     color: '#006265'
   },
+  editImage: {
+    flex: 1,
+    width: 20,
+    height: 20,
+    marginRight: 20,
+    resizeMode: 'stretch',
+  },
   rightArrowImage: {
-    width: 13,
-    height: 13,
-    marginTop: 4,
+    flex: 1,
+    width: 20,
+    height: 18,
+    resizeMode: 'stretch',
   },
   listItem: {
     flexDirection: 'row',
