@@ -8,12 +8,11 @@ import {
 // import soccer from '../assets/cup.png';
 
 export default function CategoryListItem(props) {
-  const { level, onPress } = props;
+  const { levelName, onPress } = props;
   return (
     <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
       <View style={styles.container}>
-        <Text style={styles.title}>{level.name}</Text>
-        {/* <Image source={soccer} style={styles.categoryImage}></Image> */}
+        <Text style={styles.title}>{levelName}</Text>
       </View>
     </TouchableOpacity>
   );

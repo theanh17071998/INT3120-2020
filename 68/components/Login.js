@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     marginTop: screen(5),
   },
   titleText: {
+    marginTop: screen(5),
     fontSize: 24,
     color: '#006265',
     textAlign: 'center',

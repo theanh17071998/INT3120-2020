@@ -6,7 +6,7 @@ import {
 
 import WordItem from '../components/WordItem';
 
-import HearderInputListKanji from '../components/HearderInputListKanji';
+import HeaderInputListKanji from '../components/HeaderInputListKanji';
 import Provider, { Context } from './FavoriteKanjiScreen/context';
 
 
@@ -28,7 +28,7 @@ export default class FavoriteKanjiScreen extends React.Component {
     return (
       <Provider>
         <View style={styles.container}>
-          <HearderInputListKanji />
+          <HeaderInputListKanji />
           <View style={styles.listKanji}>
             <Context.Consumer>
               {({ stateListKanji }) => stateListKanji.map((kanji, index) => (

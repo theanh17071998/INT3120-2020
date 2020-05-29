@@ -67,12 +67,13 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 3,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
     elevation: 2,
     marginBottom: 12,
+    borderRadius: 3,
     borderWidth: 0,
   },
   header: {

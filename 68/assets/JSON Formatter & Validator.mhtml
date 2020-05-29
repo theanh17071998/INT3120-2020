@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>JSON Formatter &amp; Validator</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta lang="en" name="description" content="The JSON Formatter &amp; Validator beautifies and debugs JSON data with advanced formatting and validation algorithms." />
+<meta lang="en" name="keywords" content="JSON Formatter &amp; Validator,JSON Validator,JSON Formatter,JSON Format,Debug JSON,Pretty Print JSON,Validate JSON,JSON Pretty Printer,JSON Beautifier,Beautify JSON" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="INDEX, FOLLOW" />
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/jf/apple-touch-icon.g79xknzqx7c.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/jf/favicon-32x32.g79xknzqx7c.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/jf/favicon-16x16.g79xknzqx7c.png">
+<link rel="manifest" href="/icons/jf/site.g79xknzqx7c.webmanifest">
+<link rel="mask-icon" href="/icons/jf/safari-pinned-tab.g79xknzqx7c.svg" color="#2980b9">
+<link rel="shortcut icon" href="/icons/jf/favicon.g79xknzqx7c.ico">
+<meta name="msapplication-TileColor" content="#2980b9">
+<meta name="msapplication-TileImage" content="/icons/jf/mstile-144x144.g79xknzqx7c.png">
+<meta name="msapplication-config" content="/icons/jf/browserconfig.g79xknzqx7c.xml">
+<meta name="theme-color" content="#2980b9">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="JSON Formatter &amp; Validator" />
+<meta name="twitter:description" content="Format and validate JSON data so that it can easily be read by human beings." />
+<meta name="twitter:image" content="https://jsonformatter.curiousconcept.com/icons/jf/mstile-144x144.b0ef4bd01d6cb25ab71ae707ed7ac226.png" />
+<meta name="twitter:url" content="https://jsonformatter.curiousconcept.com">
+<meta name="twitter:creator" content="@curiousconcept">
+
+<meta property="og:title" content="JSON Formatter &amp; Validator" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://jsonformatter.curiousconcept.com" />
+<meta property="og:image" content="https://jsonformatter.curiousconcept.com/icons/jf/mstile-144x144.b0ef4bd01d6cb25ab71ae707ed7ac226.png" />
+<meta property="og:description" content="Format and validate JSON data so that it can easily be read by human beings." />
+
+<script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "WebSite",
+            "name": "JSON Formatter &amp; Validator",
+            "image": "https://jsonformatter.curiousconcept.com/icons/jf/mstile-144x144.b0ef4bd01d6cb25ab71ae707ed7ac226.png",
+            "url": "https://jsonformatter.curiousconcept.com",
+            "description": "The JSON Formatter &amp; Validator beautifies and debugs JSON data with advanced formatting and validation algorithms.",
+            "isPartOf": {
+                "@type": "Website",
+                "name": "Curious Concept",
+                "url": "https://curiousconcept.com"
+            },
+            "sameAs" : [
+                "https://twitter.com/curiousconcept"
+            ]
+        }
+        </script>
+<link href="https://jsonformatter.curiousconcept.com/css/jf/primary.73dbbebbabaf006a98c2248fd91776fc.css" rel="stylesheet" media="all" />
+<link href="https://jsonformatter.curiousconcept.com/css/jf/secondary.2ac81347517db4149639760e93e4b354.css" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;" />
+<noscript><link href="https://jsonformatter.curiousconcept.com/css/jf/secondary.2ac81347517db4149639760e93e4b354.css" rel="stylesheet" media="all"/></noscript>
+</head>
+<body data-page="index">
+<nav class="navbar is-spaced is-fixed-top" role="navigation" aria-label="main navigation">
+<div class="container">
+<div class="navbar-brand">
+<h1 class="navbar-item">
+<a class="navbar-item" href="#">
+<svg role="img" aria-label="[title + description]" width="180" height="25">
+<title>JSON Formatter &amp; Validator</title>
+<desc>Format and validate JSON data so that it can easily be read by human beings.</desc>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#logo-jsonformatter"></use>
+</svg>
+</a>
+</h1>
+<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+</a>
+</div>
+<div class="navbar-menu">
+<div class="navbar-start is-hidden-touch">
+<div class="navbar-item has-dropdown is-hoverable">
+<a class="navbar-link is-arrowless">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#caret-down-solid"></use>
+</svg> </span>
+</a>
+<div class="navbar-dropdown is-boxed">
+<a class="navbar-item" href="https://dataconverter.curiousconcept.com">
+<svg width="136" height="15">
+<desc>Mutate: Data Converter</desc>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#logo-dataconverter"></use>
+</svg>
+</a>
+<a class="navbar-item" href="https://jsonpath.curiousconcept.com">
+<svg width="154" height="15">
+<desc>JSONPath Expression Tester</desc>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#logo-jsonpath"></use>
+</svg>
+</a>
+<a class="navbar-item" href="https://jsonselect.curiousconcept.com">
+<svg width="179" height="15">
+<desc>JSONSelect Expression Tester</desc>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#logo-jsonselect"></use>
+</svg>
+</a>
+<a class="navbar-item" href="https://xpath.curiousconcept.com">
+<svg width="118" height="15">
+<desc>XPath Expression Tester</desc>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#logo-xpath"></use>
+</svg>
+</a>
+<hr class="navbar-divider" />
+<a class="navbar-item" href="https://zuq.curiousconcept.com">
+<svg width="124" height="19">
+<desc>ZUQ: Alvin McDonald&#039;s Initials Encoder</desc>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#logo-zuq"></use>
+</svg>
+</a>
+</div>
+</div>
+</div>
+<div class="navbar-end">
+<a class="navbar-item" href="#about">About</a>
+<a class="navbar-item" href="#learn">Learn</a>
+<a class="navbar-item" href="#bookmarklet">Bookmarklet</a>
+<a class="navbar-item" href="#faq">FAQ</a>
+<a class="navbar-item" href="#changelog">Changelog</a>
+<a class="navbar-item is-hidden-desktop" href="https://curiousconcept.">Other Tools</a>
+<a class="navbar-item" href="#contact">Contact</a>
+<a class="navbar-item" href="https://twitter.com/curiousconcept">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#twitter-brands"></use>
+</svg> </span>
+</a>
+</div>
+</div>
+</nav> <section class="section is-primary" id="input">
+<form class="container">
+<div class="columns is-mobile is-centered is-multiline is-vcentered">
+<div class="column is-2-desktop is-hidden-touch hint has-text-centered">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#share-solid"></use>
+</svg> </span>
+<br />
+<br />
+<p>Paste in JSON or a URL, drop a file, <button type="button" class="button is-text" name="browse">browse</button>, or load an <button type="button" class="button is-text" name="example">example</button> to begin.</p>
+</div>
+<div class="column is-12-touch is-8-desktop">
+<div class="field">
+<label class="label">JSON Data/URL</label>
+<div class="control">
+<div class="dropzone">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#file-upload-solid"></use>
+</svg> </span>
+Drop your JSON file here.
+</div>
+<div class="loading">
+<progress class="progress" value="15" max="100"></progress>
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#file-upload-solid"></use>
+</svg> </span>
+Loading...
+</div>
+<textarea class="textarea is-code will-clear" id="jsondata" name="jsondata" data-gramm_editor="false" spellcheck="false" placeholder='{}' rows="5"></textarea>
+<div class="buttons has-addons is-vertical">
+<button class="button is-small is-transparent" type="button" name="browse" aria-label="Load File" data-balloon-pos="left">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#folder-open-regular"></use>
+</svg> </span>
+</button>
+<button class="button is-small is-transparent" type="button" name="clear" aria-label="Clear" data-balloon-pos="left">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#trash-alt-regular"></use>
+</svg> </span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="column is-12-mobile is-2-desktop options has-text-centered-desktop">
+<div class="field">
+<label class="label">JSON Template</label>
+<div class="control">
+<div class="select is-fullwidth">
+<select id="jsontemplate" name="jsontemplate">
+<option value="0">4 Space Tab</option>
+<option value="1" selected>3 Space Tab</option>
+<option value="2">2 Space Tab</option>
+<option value="3">Compact</option>
+<option value="4">1 Tab Tab</option>
+</select>
+</div>
+</div>
+</div>
+<div class="field">
+<label class="label">JSON Specification</label>
+<div class="control">
+<div class="select is-fullwidth">
+<select id="jsonspec" name="jsonspec">
+<option value="4" selected>RFC 8259</option>
+<option value="2">RFC 7159</option>
+<option value="1">RFC 4627</option>
+<option value="3">ECMA-404</option>
+<option value="0">Skip Validation</option>
+</select>
+</div>
+</div>
+</div>
+<div class="field is-grouped">
+<div class="control">
+<label class="checkbox label" for="jsonfix">
+<input type="checkbox" name="jsonfix" id="jsonfix" checked>
+Fix JSON
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#square-solid"></use>
+</svg> <svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#check-solid"></use>
+</svg> </span>
+</label>
+</div>
+<div class="control">
+<button type="button" class="button is-text" name="view-fix-info" data-balloon-length="large" data-balloon-pos="down" aria-label="Repairs common JSON errors by replacing incorrect quotes, adding missing quotes, escaping unescaped characters, and removing comments and trailing commas.">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#question-solid"></use>
+</svg> </span>
+</button>
+</div>
+</div>
+<input type="hidden" name="autoprocess" value="" />
+</div>
+<div class="column is-12">
+<div class="field is-grouped is-grouped-centered">
+<div class="control">
+<button type="button" name="process" class="button is-action is-medium">Process</button>
+</div>
+</div>
+</div>
+</div>
+</form>
+</section> <section class="section results">
+<div class="media">
+<div class="container">
+<div class="has-text-centered partner">
+<div class="blocker content">
+<p>Adblocker eh?&nbsp;&nbsp;No problem.&nbsp;&nbsp;Please consider these other ways of supporting our work:</p>
+<a target="_blank" class="button is-support" name="support" href="https://curiousconcept.com/donate">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#heart-solid"></use>
+</svg> </span>
+<span>Donate</span>
+</a>
+<a target="_blank" class="button is-dark" name="tweet" href="https://twitter.com/intent/tweet?text=I%20%E2%9D%A4%EF%B8%8F%20the%20@curiousconcept%20JSON%20Formatter%20%26%20Validator%20(https%3A%2F%2Fjsonformatter.curiousconcept.com).">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#twitter-brands"></use>
+</svg> </span>
+<span>Tweet</span>
+</a>
+</div> </div>
+</div>
+</div> <div class="results">
+</div>
+<div class="templates is-hidden">
+<div class="result">
+<div class="container">
+<div class="columns is-mobile">
+<div class="column is-narrow">
+<h3></h3>
+</div>
+<div class="column is-12-mobile">
+<div class="description">
+<button class="button is-text" name="rename-result"></button>
+<input class="input" type="text" placeholder="">
+</div>
+<div class="url"></div>
+</div>
+<div class="column is-narrow">
+<div class="buttons has-addons">
+<button class="button is-dark" name="copy-result" aria-label="Copy to Clipboard" data-balloon-pos="up">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#paste-solid"></use>
+</svg> </span>
+</button>
+<button class="button is-dark" name="download-result" aria-label="Download JSON" data-balloon-pos="up">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#file-download-solid"></use>
+</svg> </span>
+</button>
+<button class="button is-dark" name="convert-result" aria-label="Convert JSON" data-balloon-pos="up">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#icon-data-converter"></use>
+</svg> </span>
+</button>
+<button class="button is-dark" name="query-result" aria-label="Query JSON" data-balloon-pos="up">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#dollar-sign-solid"></use>
+</svg> </span>
+</button>
+<button class="button is-dark" name="highlight-errors" aria-label="Hide Errors" data-balloon-pos="up">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#exclamation-circle-solid"></use>
+</svg> </span>
+</button>
+<button class="button is-dark" name="collapse-all-nodes" aria-label="Collapse Nodes" data-balloon-pos="up">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#minus-square-solid"></use>
+</svg> <svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#plus-square-solid"></use>
+</svg> </span>
+</button>
+<button class="button is-dark" name="collapse-result" aria-label="Collapse Result" data-balloon-pos="up">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#caret-square-up-solid"></use>
+</svg> <svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#caret-square-down-solid"></use>
+</svg> </span>
+</button>
+<button class="button is-dark" name="close" aria-label="Close" data-balloon-pos="up">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#times-solid"></use>
+</svg> </span>
+</button>
+</div>
+</div>
+</div>
+<div class="bottom">
+<div class="validation is-valid">Valid JSON (RFC1000)</div>
+<div class="field">
+<label class="label">Fixer/Validator Output</label>
+<ul class="messages"></ul>
+</div>
+<div class="field">
+<label class="label">Formatted JSON Data</label>
+<div class="dataholder">
+<div class="data textarea is-code" tabindex="-1"></div>
+<div class="buttons has-addons">
+<button class="button is-dark" name="shrink-result" aria-label="Shrink Result" data-balloon-pos="up">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#minus-solid"></use>
+</svg> </span>
+</button>
+<button class="button is-dark" name="grow-result" aria-label="Grow Result" data-balloon-pos="up">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#plus-solid"></use>
+</svg> </span>
+</button>
+<button class="button is-dark" name="fullscreen-result" aria-label="Fullscreen" data-balloon-pos="up">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#expand-solid"></use>
+</svg> <svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#compress-solid"></use>
+</svg> </span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="buttons">
+<button class="button is-text" name="collapse-node">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#minus-square-regular"></use>
+</svg> <svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#plus-square-regular"></use>
+</svg> </span>
+</button>
+</div>
+<ul class="messages">
+<li class="message is-info">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#info-circle-solid"></use>
+</svg> </span>
+<strong>Info:</strong>
+<span></span>
+</li>
+<li class="message is-error">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#exclamation-circle-solid"></use>
+</svg> </span>
+<strong>Error:</strong>
+<button class="button is-text" name="view-result-error" data-structure="0"></button>
+<em></em>
+</li>
+<li class="message is-warning">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#exclamation-triangle-solid"></use>
+</svg> </span>
+<strong>Warning:</strong>
+<button class="button is-text" name="view-result-error" data-structure="0"></button>
+<em></em>
+</li>
+</ul>
+</div>
+</section> <section class="section" id="about">
+<div class="container">
+<h2 class="title">About</h2>
+<hr />
+<div class="columns is-centered">
+<div class="column is-10-tablet is-8-desktop is-6-widescreen">
+<div class="content has-text-centered-tablet">
+<p>The <a href="#" title="JSON Formatter &amp; Validator">JSON Formatter</a> was created to help folks with debugging. As JSON data is often output without line breaks to save space, it can be extremely difficult to actually read and make sense of it. This tool hoped to solve the problem by formatting and beautifying the JSON data so that it is easy to read and debug by human beings.</p>
+<p>To further expand the debugging capabilities, advanced JSON validation was soon added following the description set out by Douglas Crockford of <a title="Visit json.org" href="https://json.org/">json.org</a> in <a title="Visit the RFC 4627 JSON Specification" href="https://www.ietf.org/rfc/rfc4627.txt?number=4627">RFC 4627</a>. It has since been updated to allow validation of multiple JSON standards, including both current specifications <a title="Visit the RFC 8259 JSON Specification" href="https://tools.ietf.org/html/rfc8259">RFC 8259</a> and <a title="Visit the ECMA-404 JSON Specification" href="https://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf">ECMA-404</a>.</p>
+<p>Most recently, the capability to fix common JSON errors was added. If enabled, it will replace incorrect quotes, add missing quotes, escape unescaped characters, and remove comments and trailing commas.</p>
+</div>
+</div>
+</div>
+</div>
+</section> <section class="section is-white-ter" id="learn">
+<div class="container">
+<h2 class="title">Learn About JSON</h2>
+<hr />
+<div class="columns is-centered is-multiline">
+<div class="column is-10-tablet is-6-desktop is-5-widescreen content">
+<p>JSON or JavaScript Object Notation is a language-independent open data format that uses human-readable text to express data objects consisting of attribute-value pairs.</p>
+<p>Although originally derived from the JavaScript scripting language, JSON data can be generated and parsed with a wide variety of programming languages including JavaScript, PHP, Python, Ruby, and Java.</p>
+</div>
+<div class="column is-10-tablet is-4-desktop is-3-widescreen content">
+<p>To learn more about JSON check out some of the following links.</p>
+<ul class="is-icon">
+<li><span class="icon"><svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#external-link-alt-solid"></use>
+</svg> </span><a title="Visit json.org" href="https://json.org/">json.org</a></li>
+<li><span class="icon"><svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#external-link-alt-solid"></use>
+</svg> </span><a title="Visit Wikipedia's JSON Entry" href="https://en.wikipedia.org/wiki/JSON">Wikipedia - JSON</a></li>
+<li><span class="icon"><svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#external-link-alt-solid"></use>
+</svg> </span><a title="Visit w3schools.com's JSON Tutorial" href="https://www.w3schools.com/js/js_json_intro.asp" rel="nofollow">w3schools.com - JSON Tutorial</a></li>
+<li><span class="icon"><svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#external-link-alt-solid"></use>
+</svg> </span><a title="Visit the blog post that started JSONP" href="http://bob.ippoli.to/archives/2005/12/05/remote-json-jsonp/">bob.ippoli.to - Remote JSON - JSONP</a></li>
+<li><span class="icon"><svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#external-link-alt-solid"></use>
+</svg> </span><a title="Visit Wikipedia's JSONP Entry" href="https://en.wikipedia.org/wiki/JSON#JSONP">Wikipedia - JSONP</a></li>
+</ul>
+</div>
+</div>
+</div>
+</section> <section class="section is-primary" id="bookmarklet">
+<div class="container">
+<h2 class="title">Bookmarklet</h2>
+<hr />
+<div class="columns is-centered">
+<div class="column is-10-tablet is-8-desktop is-6-widescreen">
+<div class="content has-text-centered">
+<p>Install the JSON Formatter &amp; Validator Bookmarklet to quickly and easily format and validate any public JSON URL with a single click.</p>
+<p>
+<br />
+<a class="bookmarklet button is-action is-outlined" href="javascript:(function(){ window.open('https://jsonformatter.curiousconcept.com/#'+encodeURI(location.href)); })();">Format &amp; Validate JSON</a>
+<br /><br />
+<small>To install, just drag the button above into your bookmarks toolbar.</small>
+</p>
+</div>
+</div>
+</div>
+</div>
+</section> <section class="section " id="faq">
+<div class="container">
+<h2 class="title">FAQ</h2>
+<hr />
+<div class="columns is-centered">
+<div class="column is-10-tablet is-8-desktop is-6-widescreen">
+<div class="content">
+<p class="has-text-centered">Have questions? These are the answers to the questions we are most frequently asked.</p>
+<br />
+<br />
+<dl>
+<dt id="query-parameters">Can I pass my JSON data in the URL?</dt>
+<dd>
+<p>Yes! You can populate and process the JSON data entirely via the following query parameters:</p>
+<table class="table is-narrow">
+<tr>
+<td><code>data</code></td>
+<td>JSON Data or a URL</td>
+</tr>
+<tr>
+<td><code>template</code></td>
+<td><code>fourspace</code>, <code>threespace</code>, <code>twospace</code>, <code>compact</code>, or <code>onetab</code></td>
+</tr>
+<tr>
+<td><code>spec</code></td>
+<td><code>rfc8259</code>, <code>rfc7159</code>, <code>rfc4627</code>, <code>ecma404</code>, or <code>skip</code></td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td><code>true</code> or <code>false</code></td>
+</tr>
+<tr>
+<td><code>process</code></td>
+<td><code>true</code> or <code>false</code></td>
+</tr>
+</table>
+</dd>
+<dt>Is any of my JSON data recorded or stored?</dt>
+<dd>
+<p>Absolutely not! Your data is merely processed and returned directly to you. For more information visit our <a href="https://curiousconcept.com/privacy" target="_blank" title="Read our Privacy Policy">Privacy Policy</a>.</p>
+</dd>
+<dt>Is the JSON Formatter &amp; Validator available offline?</dt>
+<dd>
+<p>In order to keep focused on providing the best JSON beautifier and validator online, we do not offer an offline version.</p>
+</dd>
+<dt>Can I donate to the project?</dt>
+<dd>
+<p>Definitely! Although you are in no way obligated, we genuinely appreciate every contribution we receive.</p>
+<p class="has-text-centered" style="margin-left: -2em;">
+<a target="_blank" class="button is-support is-medium" href="https://curiousconcept.com/donate">
+<span class="icon">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#heart-solid"></use>
+</svg> </span>
+<span>Donate</span>
+</a>
+</p>
+<p>A big <strong style="font-weight:400;">thank you</strong> goes out to all the donors who have already contributed. We are humbled by your kindness and generosity.</p>
+</dd>
+</dl>
+<br />
+<br />
+<p class="has-text-centered">Still have questions? Please <a href="#contact">contact us</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</section> <section class="section is-white-ter" id="changelog">
+<div class="container">
+<h2 class="title">Changelog</h2>
+<hr />
+<div class="columns is-centered">
+<div class="column is-8-tablet is-6-desktop is-6-widescreen">
+<div class="content">
+<h3 class="is-size-6 is-uppercase">March 2020</h3>
+<ul>
+<li>Added <a href="#faq">Frequently Asked Questions</a>.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">February 2020</h3>
+<ul>
+<li>Added an example.</li>
+<li>Added <a href="#query-parameters">URL query parameters</a>.</li>
+<li>Updated frontend.</li>
+<li>Fixed a charset case sensitivity issue. <small>Thanks Muneer.</small></li>
+<li>Fixed a typo. <small>Thanks Melissa.</small></li>
+<li>Fixed a Safari error. <small>Thanks Alexander.</small></li>
+<li>Fixed a selection highlighting issue. <small>Thanks Thomas.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">January 2020</h3>
+<ul>
+<li>Fixed a scrolling performance issue. <small>Thanks Stuart.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">November 2019</h3>
+<ul>
+<li>Added integration with the <a href="https://jsonpath.curiousconcept.com" title="Visit the Mutate&colon; Data Converter">Mutate&colon; Data Converter</a> and the <a href="https://jsonpath.curiousconcept.com" title="Visit the JSONPath Expression Tester">JSONPath Expression Tester</a>, via new convert and query buttons.</li>
+<li>Added drag and drop, and browse, local file loading.</li>
+<li>Added capability to fix common JSON errors. It will optionally replace incorrect quotes, add missing quotes, escape unescaped characters, and remove comments and trailing commas.</li>
+<li>Fixed an object key string comparison issue. <small>Thanks Gwon.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">October 2019</h3>
+<ul>
+<li>Added the latest JSON specification, <a title="Visit the RFC 8259 JSON Specification" href="https://tools.ietf.org/html/rfc8259">RFC 8259</a>.</li>
+<li>Added performance improvements.</li>
+<li>Added limits to validation errors.</li>
+<li>Added limits to object/array depth.</li>
+<li>Updated default JSON specification to RFC 8259.</li>
+<li>Updated validation output message order. Errors appear before warnings.</li>
+<li>Fixed a closing bracket/brace validation issue. <small>Thanks Khurram.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">May 2019</h3>
+<ul>
+<li>Added error highlight toggling. <small>Thanks Raf.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">January 2019</h3>
+<ul>
+<li>Added a single tab, tab template.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">December 2018</h3>
+<ul>
+<li>Added JSON validation processing optimizations.</li>
+<li>Added character position to invalid character errors.</li>
+<li>Added additional tooltips.</li>
+<li>Updated external libraries.</li>
+<li>Fixed an issue with fullscreen toggle. <small>Thanks to everyone that reported it.</small></li>
+<li>Fixed an issue when validating JSONP to RFC7159.</li>
+ </ul>
+<h3 class="is-size-6 is-uppercase">July 2018</h3>
+<ul>
+<li>Updated broken bob.ippoli.to link. <small>Thanks Rodrigo.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">June 2018</h3>
+<ul>
+<li>Fixed a cookie bug.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">November 2017</h3>
+<ul>
+<li>Improved images.</li>
+<li>Updated broken Learn About JSON links. <small>Thanks Tony.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">October 2016</h3>
+<ul>
+<li>Switched copy to use <a href="https://clipboardjs.com/" title="Visit clipboard.js">clipboard.js</a></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">July 2016</h3>
+<ul>
+<li>Fixed a RFC 7159 validation bug. <small>Thanks Anonymous.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">November 2015</h3>
+<ul>
+<li>Added the ability to validate additional JSON specifications, <a title="Visit the RFC 7159 JSON Specification" href="https://tools.ietf.org/html/rfc7159">RFC 7159</a> and <a title="Visit the ECMA-404 JSON Specification" href="https://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf">ECMA-404</a>.</li>
+<li>Added tooltips.</li>
+<li>Improved url validation.</li>
+<li>Fixed a validation bug. <small>Thanks Philipp.</small></li>
+<li>Fixed a parse bug. <small>Thanks Bla.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">October 2015</h3>
+<ul>
+<li>Added the ability expand/collapse all nodes.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">August 2015</h3>
+<ul>
+<li>Added the ability to rename results.</li>
+<li>Added the ability to download results.</li>
+<li>Switched to HTTPS.</li>
+<li>Fixed a text rendering bug. <small>Thanks Kyle.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">October 2014</h3>
+<ul>
+<li>Fixed a template collapse/expand bug. <small>Thanks Dmitry.</small></li>
+<li>Fixed a copied result entity bug. <small>Thanks Jim.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">September 2014</h3>
+<ul>
+<li>Added a four space tab template.</li>
+<li>Added a clear button.</li>
+<li>Improved grow/shrink buttons.</li>
+<li>Fixed a clipboard bug.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">July 2014</h3>
+<ul>
+<li>Redesign of frontend.</li>
+<li>Updated backend from <a title="Visit CodeIgniter" href="https://codeigniter.com/">CodeIgniter</a> to <a title="Visit Larvel" href="http://laravel.com/">Laravel</a>.</li>
+<li>Added cookies to remember options.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">September 2013</h3>
+<ul>
+<li>Changed hosts to further improve speed.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">April 2013</h3>
+<ul>
+<li>Added autofocus to JSON Data input.</li>
+<li>Fixed stripping of invisible characters. <small>Thanks Paul.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">March 2013</h3>
+<ul>
+<li>Fixed a typo. <small>Thanks Anonymous.</small></li>
+<li>Added a donation button.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">February 2013</h3>
+<ul>
+<li>Fixed a number validation bug. <small>Thanks Chris and Anonymous.</small></li>
+</ul>
+<h3 class="is-size-6 is-uppercase">January 2013</h3>
+<ul>
+<li>Updated external libraries.</li>
+<li>Improved caching.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">May 2011</h3>
+<ul>
+<li>Added ability to collapse/expand objects and arrays.</li>
+<li>Added a two space tab template.</li>
+<li>Fixed bugs reported since latest changes.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">February 2011</h3>
+<ul>
+<li>Redesign of frontend.</li>
+<li>Improved validation logic. String validation in particular is greatly improved.</li>
+<li>Improved error messages.</li>
+<li>Added goto error ability.</li>
+<li>Added ability to accept JSONP. Check out this <a title="JSONP Validation Example" href="#http://api.duckduckgo.com/?q=JSON&format=json&callback=exec">example</a>.</li>
+<li>Added ability to pass JSON URL in URL as hash. Check out this <a title="JSON URL Example" href="#http://api.reddit.com/search?q=kittens&limit=2">example</a>.</li>
+<li>Added a <a title="JSON Validator Bookmarklet" href="#bookmarklet">bookmarklet</a>.</li>
+<li>Added a button to copy results to clipboard.</li>
+<li>Removed custom template capability. From now on <a title="Contact" href="#contact">send in template requests &amp; examples</a>.</li>
+<li>Removed Select All button.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">November 2009</h3>
+<ul>
+<li>Upgraded hosts to improve speed.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">December 2008</h3>
+<ul>
+<li>Added a Select All button.</li>
+<li>Fixed url validation and output bugs.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">November 2008</h3>
+<ul>
+<li>Improved JSON formatter.</li>
+<li>Improved JSON parser.</li>
+<li>Redesign of frontend.</li>
+<li>Added multiple results.</li>
+<li>Added templates.</li>
+<li>Added more helpful error messages.</li>
+<li>Added validation.</li>
+<li>Added resizable textareas.</li>
+</ul>
+<h3 class="is-size-6 is-uppercase">January 2007</h3>
+<ul>
+<li>Initial release of the JSON Formatter.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section> <section class="section is-primary" id="contact">
+<div class="container">
+<h2 class="title">Contact</h2>
+<hr />
+<div class="columns is-centered">
+<div class="column is-10-tablet is-8-desktop is-8-widescreen">
+<div class="content has-text-centered-tablet">
+<p>Over the years the JSON Formatter &amp; Validator has been immensely improved through the feedback and suggestions of its users. We encourage you to continue to pass along any new recommendations, requests or bug reports.</p>
+</div>
+</div>
+</div>
+<div class="columns is-centered">
+<div class="column is-8-tablet is-6-desktop is-6-widescreen">
+<form role="form" class="row">
+<div class="field">
+<label class="label is-sr-only" for="name">Name</label>
+<div class="control">
+<input class="input name" type="text" name="name" placeholder="Name">
+</div>
+</div>
+ <div class="field">
+<label class="label is-sr-only" for="email">Email Address</label>
+<div class="control">
+<input class="input email" type="email" name="email" placeholder="Email Address">
+</div>
+</div>
+<div class="field">
+<label class="label is-sr-only" for="url">URL</label>
+<div class="control">
+<input class="input url" type="url" name="url" placeholder="URL" autocomplete="nope">
+</div>
+</div>
+<div class="field">
+<label class="label is-sr-only" for="message">Message</label>
+<div class="control">
+<textarea class="textarea message" name="message" rows="6" placeholder="Message"></textarea>
+</div>
+</div>
+<div class="field is-grouped is-grouped-centered">
+<div class="control">
+<button type="button" name="send" class="button is-action is-medium">Send</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+<div class="modal contact">
+<div class="modal-background"></div>
+<div class="modal-content">
+<div class="notification has-text-centered">
+<h3 class="title">
+<span class="icon is-large">
+<svg>
+<use xlink:href="https://jsonformatter.curiousconcept.com/img/master.5230b951175e37d998d221492999664a.svg#envelope-solid"></use>
+</svg> </span>
+Sent
+</h3>
+<p>Thank you for taking the time to write in.</p>
+<p>You'll be hearing from us shortly.</p>
+<br />
+<button class="button is-action" name="close-modal">Close</button>
+</div>
+</div>
+</div> <footer class="footer">
+<div class="content has-text-centered">
+<p>© 2007 - 2020 <a href="https://curiousconcept.com">Curious Concept</a> | <a href="https://curiousconcept.com/privacy">Privacy Policy</a></p>
+</div>
+</footer> <script async type="text/javascript" src='https://www.google-analytics.com/analytics.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://jsonformatter.curiousconcept.com/js/jf/script.92cf66d768c97c4c37548ac2d278b426.js"></script>
+</body>
+</html>

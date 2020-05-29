@@ -14,17 +14,14 @@ import KanjiTests from './screens/KanjiTests';
 import FavoriteKanjiScreen from './screens/FavoriteKanjiScreen';
 
 const Appnavigator = createStackNavigator({
-  LoginScreen: {
-    screen: LoginScreen
+  Levels: {
+    screen: Levels
   },
   FavoriteKanjiScreen: {
     screen: FavoriteKanjiScreen
   },
   ProfileScreen: {
     screen: ProfileScreen
-  },
-  Levels: {
-    screen: Levels
   },
   KanjiGroup: {
     screen: KanjiGroup
@@ -48,4 +45,18 @@ const Appnavigator = createStackNavigator({
     screen: KanjiTests
   }
 });
-export default Appnavigator;
+const RootStack = createStackNavigator(
+  {
+    LoginScreen: {
+      screen: LoginScreen
+    },
+    Main: {
+      screen: Appnavigator,
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
+);
+export default RootStack;

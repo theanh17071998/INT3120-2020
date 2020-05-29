@@ -3,6 +3,7 @@ import {
   ActivityIndicator, StyleSheet, Dimensions, View
 } from 'react-native';
 import { Image, ListItem, Button } from 'react-native-elements';
+import { NavigationActions, StackActions } from 'react-navigation';
 import firebase from 'firebase';
 
 
@@ -45,7 +46,14 @@ export default class ProfileScreen extends React.Component {
   logout = () => {
     const { navigation } = this.props;
     firebase.auth().signOut().then(() => {
-      navigation.navigate('LoginScreen', { logout: true });
+      navigation.dispatch(StackActions.reset(
+        {
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'LoginScreen' })
+          ]
+        }
+      ));
       // Sign-out successful.
     }).catch((error) => {
       console.log(error);

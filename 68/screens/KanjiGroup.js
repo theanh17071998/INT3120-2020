@@ -16,7 +16,7 @@ import imgAdd from '../assets/add.png';
 const db = firebase.firestore();
 export default class kanjiGroup extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam('kanjiGroupName'),
+    title: navigation.getParam('levelName'),
     headerTitleAlign: 'center',
     headerTitleStyle: {
       color: 'white',
@@ -55,11 +55,21 @@ export default class kanjiGroup extends React.Component {
         const data = doc.data();
         this.setState({ lsGroup: data.kanjiGroup });
       } else {
-        console.log('No such document!');
+        // console.log('No such document!');
       }
     }).catch((error) => {
-      console.log('Error getting document:', error);
+      // console.log('Error getting document:', error);
     });
+    // db.collection('level').where('levelName', '==', 'sơ cấp 2').get()
+    //   .then((querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+    //       // doc.data() is never undefined for query doc snapshots
+    //       console.log(doc.id, ' => ', doc.data());
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.log('Error getting documents: ', error);
+    //   });
   }
 
   render() {
@@ -79,7 +89,6 @@ export default class kanjiGroup extends React.Component {
           )}
           keyExtractor={(obj, index) => `${index}`}
         />
-
       </View>
     );
   }

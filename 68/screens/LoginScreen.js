@@ -10,12 +10,14 @@ import {
 import Login from '../components/Login';
 import Levels from './Levels';
 
+const db = firebase.firestore();
+
 const deviceWidth = Dimensions.get('window').width;
 const screen = (percent) => (deviceWidth * percent) / 100;
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = () => ({
-    // title: 'Login',
+    title: 'Login',
     headerTitleAlign: 'center',
     headerTitleStyle: {
       color: 'white',
@@ -24,18 +26,19 @@ export default class LoginScreen extends React.Component {
     headerStyle: {
       backgroundColor: '#006265',
     },
+    headerMode: 'none',
+    navigationOptions: { headerVisible: false }
   });
 
-  // eslint-disable-next-line react/destructuring-assignment
-  navigation = this.props.navigation;
 
   constructor(props) {
     super(props);
     this.state = {
-      ready: false,
-      stateLogin: false,
+      // ready: false,
+      loadding: true,
     };
   }
+
 
   static getDerivedStateFromProps(newProps, currentState) {
     if (newProps.navigation.getParam('logout') !== currentState.logout) {
@@ -49,11 +52,10 @@ export default class LoginScreen extends React.Component {
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ stateLogin: true, ready: true });
-        this.navigation.setParams({ logout: false });
+        const { navigation } = this.props;
+        navigation.replace('Main');
       } else {
-        // No user is signed in.
-        this.setState({ ready: true });
+        this.setState({ loadding: false });
       }
     });
   }
@@ -71,9 +73,22 @@ export default class LoginScreen extends React.Component {
           result.accessToken,
         );
         // Sign in with credential from the Google user.
-        firebase.auth().signInWithCredential(credential);
-        this.navigation.setParams({ title: 'Updated!' });
-        this.setState({ stateLogin: true });
+        firebase.auth().signInWithCredential(credential)
+          .then((data) => {
+            const { navigation } = this.props;
+            navigation.replace('Main');
+            db.collection('level').doc(data.user.uid).set({
+              levelName: 'Kanji của bạn',
+              author: data.user.uid
+            }, { merge: true })
+              .then(() => {
+                console.log('Document successfully written!');
+              })
+              .catch((error) => {
+                console.error('Error writing document: ', error);
+              });
+          })
+          .catch((data) => console.log(data));
       }
       return { cancelled: true };
     } catch (e) {
@@ -94,9 +109,18 @@ export default class LoginScreen extends React.Component {
         const credential = firebase.auth.FacebookAuthProvider.credential(token);
         firebase.auth().signInWithCredential(credential)
           .then((data) => {
-            console.log(data);
-            this.navigation.setParams({ title: 'Updated!' });
-            this.setState({ stateLogin: true });
+            const { navigation } = this.props;
+            navigation.replace('Main');
+            db.collection('level').doc(data.user.uid).set({
+              levelName: 'Kanji của bạn',
+              author: data.user.uid
+            }, { merge: true })
+              .then(() => {
+                console.log('Document successfully written!');
+              })
+              .catch((error) => {
+                console.error('Error writing document: ', error);
+              });
           })
           .catch((err) => console.log(err));
       } else {
@@ -123,31 +147,29 @@ export default class LoginScreen extends React.Component {
   )
 
   render() {
-    const { stateLogin, ready } = this.state;
-    if (ready === false) {
-      return (<this.ComponentIndicator />);
-    }
-    if (stateLogin === false) {
-      return (
-        <Login>
-          <View style={styles.button}>
-            <Button
-              onPress={this.logInFacebook}
-              title="Tiếp tục đăng nhập bằng Facebook"
-              color="#4267b2"
-            />
-          </View>
-          <View style={styles.button}>
-            <Button
-              onPress={this.signInWithGoogleAsync}
-              title="Tiếp tục đăng nhập bằng Google"
-              color="#e73232"
-            />
-          </View>
-        </Login>
-      );
-    }
-    return (<Levels navigation={this.navigation} />);
+    const { loadding } = this.state;
+    if (loadding === true) return (<this.ComponentIndicator />);
+    return (
+      <View>
+        
+      <Login>
+        <View style={styles.button}>
+          <Button
+            onPress={this.logInFacebook}
+            title="Tiếp tục đăng nhập bằng Facebook"
+            color="#4267b2"
+          />
+        </View>
+        <View style={styles.button}>
+          <Button
+            onPress={this.signInWithGoogleAsync}
+            title="Tiếp tục đăng nhập bằng Google"
+            color="#e73232"
+          />
+        </View>
+      </Login>
+      </View>
+    );
   }
 }
 const styles = StyleSheet.create({
@@ -155,6 +177,10 @@ const styles = StyleSheet.create({
     marginTop: screen(5),
     width: screen(80),
     marginLeft: screen(10),
+  },
+  header: {
+    height: 30,
+    backgroundColor: '#006265',
   },
   container: {
     flex: 1,
