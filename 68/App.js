@@ -3,6 +3,8 @@ import React from 'react';
 import { YellowBox } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { decode, encode } from 'base-64';
+// eslint-disable-next-line no-unused-vars
+import firebase from './config/firebase';
 import AppNavigator from './AppNavigator';
 
 if (!global.btoa) { global.btoa = encode; }

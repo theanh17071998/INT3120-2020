@@ -21,7 +21,7 @@ export default class Levels extends React.Component {
       color: '#006265',
     },
     headerTintColor: '#006265',
-    //navigationOptions: { header: { visible: false } }
+    // navigationOptions: { header: { visible: false } }
   };
 
   constructor(props) {
@@ -54,19 +54,23 @@ export default class Levels extends React.Component {
 
   componentDidMount= async () => {
     const docRef = db.collection('level');
+    const { navigation } = this.props;
+    const idGroup = navigation.getParam('author');
     const docDefault = docRef.where('author', '==', 'default').get();
-    const docUser = docRef.where('author', '==', 'SOhMkuLepvX7dFbkXDZZ7oVzbYN2').get();
+    const docUser = docRef.where('author', '==', idGroup).get();
     const [
       levelDefault,
       levelUser
     ] = await Promise.all([docDefault, docUser]);
     this.setState({
-      level: [...levelDefault.docs, ...levelUser.docs].map((result) => (result.data()))
+      level: [...levelDefault.docs, ...levelUser.docs]
+        .map((result) => ({ id: result.id, ...result.data() }))
     });
   }
 
   render() {
     const { navigation } = this.props;
+    // const idGroup = navigation.getParam('author');
     const { level } = this.state;
     return (
       <View style={styles.container}>
@@ -77,7 +81,9 @@ export default class Levels extends React.Component {
               levelName={item.levelName}
               onPress={() => navigation.navigate('KanjiGroup', {
                 levelName: item.levelName,
-                myKanji: (index === 4)
+                userId: item.id,
+                index,
+                myKanji: (index <= 4)
               })}
             />
           )}

@@ -13,6 +13,8 @@ import WordsListItem from '../components/WordListItem';
 import imgProfile from '../assets/userProfile.png';
 import imgAdd from '../assets/add.png';
 
+// const { height } = Dimensions.get('window');
+
 const db = firebase.firestore();
 export default class kanjiGroup extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -29,7 +31,13 @@ export default class kanjiGroup extends React.Component {
       <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
         {
           navigation.getParam('myKanji') ? (
-            <TouchableOpacity onPress={() => { navigation.navigate('FavoriteKanjiScreen'); }}>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate('FavoriteKanjiScreen',
+                {
+                  userId: navigation.getParam('userId')
+                });
+            }}
+            >
               <Image source={imgAdd} style={{ width: 30, height: 30, marginRight: 10 }} />
             </TouchableOpacity>
           ) : <View />
@@ -48,47 +56,77 @@ export default class kanjiGroup extends React.Component {
     };
   }
 
-  componentDidMount = () => {
-    const docRef = db.collection('kanjiProject').doc('data');
-    docRef.get().then((doc) => {
-      if (doc.exists) {
-        const data = doc.data();
-        this.setState({ lsGroup: data.kanjiGroup });
-      } else {
-        // console.log('No such document!');
-      }
-    }).catch((error) => {
-      // console.log('Error getting document:', error);
-    });
-    // db.collection('level').where('levelName', '==', 'sơ cấp 2').get()
-    //   .then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
+  componentDidMount = async () => {
+    const { navigation } = this.props;
+    const userId = navigation.getParam('userId');
+    const index = navigation.getParam('index');
+    const query = db.collection('kanjiGroups').where('author', '==', index === 4 ? userId : index.toString());
+    const lsGroup = [];
+    query.get()
+      .then((data) => {
+        data.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          lsGroup.push({ id: doc.id, ...doc.data() });
+          // console.log(doc.id, ' => ', doc.data());
+        });
+        lsGroup.sort((a, b) => (a.index - b.index));
+        this.setState({ lsGroup });
+      });
+    // const { navigation } = this.props;
+    // const idGroup = navigation.getParam('idGroup');
+    // const query = db.collection('kanjiGroups').where('author', '==', idGroup);
+    // const lsGroup = [];
+    // query.get()
+    //   .then((data) => {
+    //     data.forEach((doc) => {
     //       // doc.data() is never undefined for query doc snapshots
-    //       console.log(doc.id, ' => ', doc.data());
+    //       lsGroup.push(doc.data());
+    //       console.log(doc.data().listKanji.map((kanji) => ({ kanji: kanji.kanji, })));
+    //       // console.log(doc.id, ' => ', doc.data());
     //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log('Error getting documents: ', error);
+    //     // lsGroup.sort((a, b) => (a.index - b.index));
+    //     this.setState({ lsGroup });
     //   });
   }
 
   render() {
     const { navigation } = this.props;
+    // const idGroup = navigation.getParam('idGroup');
+
     const { lsGroup } = this.state;
     return (
       <View style={styles.container}>
-        <FlatList
-          data={lsGroup}
-          renderItem={(obj, index) => (
-            <WordsListItem
-              kanji={obj}
-              key={index}
-              navigation={navigation}
-              isMyKanji={navigation.getParam('myKanji') === true}
-            />
-          )}
-          keyExtractor={(obj, index) => `${index}`}
-        />
+        {/*
+          navigation.getParam('myKanji') ? (
+            <View style={styles.button}>
+              <Button
+                onPress={() => {
+                  navigation.navigate('FavoriteKanjiScreen',
+                    {
+                      lengthGroup: lsGroup.length,
+                      idGroup
+                    });
+                }}
+                title="Thêm nhóm kanji"
+                color="#4267b2"
+              />
+            </View>
+          ) : <View />
+              */}
+        <View>
+          <FlatList
+            data={lsGroup}
+            renderItem={(obj, index) => (
+              <WordsListItem
+                kanji={obj}
+                key={index}
+                navigation={navigation}
+                isMyKanji={navigation.getParam('myKanji') === true}
+              />
+            )}
+            keyExtractor={(obj, index) => `${index}`}
+          />
+        </View>
       </View>
     );
   }
@@ -96,6 +134,10 @@ export default class kanjiGroup extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 8
+    marginTop: 20,
+  },
+  button: {
+    marginHorizontal: 8,
+    marginVertical: 8,
   },
 });

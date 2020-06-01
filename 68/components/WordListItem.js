@@ -6,17 +6,14 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  YellowBox
 } from 'react-native';
 import rightArrow from '../assets/right-arrow.png';
 import imgEdit from '../assets/edit.png';
-
 import WordItem from './WordItem';
 
-YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
-console.disableYellowBox = true;
 export default function WordListItem(props) {
   const { kanji, isMyKanji } = props;
+  // console.log(kanji);
   return (
     <View style={styles.container}>
       <View>
@@ -25,7 +22,21 @@ export default function WordListItem(props) {
           {
             isMyKanji
               ? (
-                <TouchableOpacity activeOpacity={0.5}>
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  onPress={() => {
+                    const { navigation } = props;
+                    const userId = navigation.getParam('userId');
+                    console.log(kanji.item.id);
+                    props.navigation.navigate('FavoriteKanjiScreen',
+                      {
+                        userId,
+                        kanjiGroupId: kanji.item.id,
+                        kanjiGroupData: kanji.item,
+                        edit: true
+                      });
+                  }}
+                >
                   <Image source={imgEdit} style={styles.editImage} />
                 </TouchableOpacity>
               ) : <View />
@@ -36,7 +47,7 @@ export default function WordListItem(props) {
               props.navigation.navigate('KanjiLearning',
                 {
                   kanjiGroup: kanji,
-                  kanjiLearningName: kanji.item.groupName
+                  kanjiLearningName: kanji.groupName
                 });
             }}
           >
@@ -45,12 +56,13 @@ export default function WordListItem(props) {
         </View>
         <View style={styles.listItem}>
           {
-              kanji ? kanji.item.kanjiList.map((object, index) => (
+              kanji.item ? kanji.item.listKanji.map((object, index) => (
                 <WordItem
+                  onPress={() => {
+                    props.navigation.navigate('KanjiDetail', { id: object.id });
+                  }}
                   key={index.toString()}
                   text={object.kanji}
-                  object={object}
-                  navigation={props.navigation}
                 />
               )) : <Text />
             }

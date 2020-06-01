@@ -2,13 +2,13 @@
 import React from 'react';
 import * as Google from 'expo-google-app-auth';
 import * as Facebook from 'expo-facebook';
-import firebase from 'firebase';
 import {
   ActivityIndicator,
   StyleSheet, View, Button, Dimensions
 } from 'react-native';
+import firebase from 'firebase';
+
 import Login from '../components/Login';
-import Levels from './Levels';
 
 const db = firebase.firestore();
 
@@ -53,7 +53,7 @@ export default class LoginScreen extends React.Component {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const { navigation } = this.props;
-        navigation.replace('Main');
+        navigation.replace('Main', { author: user.uid });
       } else {
         this.setState({ loadding: false });
       }
@@ -61,6 +61,8 @@ export default class LoginScreen extends React.Component {
   }
 
   signInWithGoogleAsync = async () => {
+    this.setState({ loadding: true });
+
     try {
       const result = await Google.logInAsync({
         androidClientId: '376767086525-ufioo6rnbc890repj2b87c8tt0nqgml3.apps.googleusercontent.com',
@@ -76,7 +78,7 @@ export default class LoginScreen extends React.Component {
         firebase.auth().signInWithCredential(credential)
           .then((data) => {
             const { navigation } = this.props;
-            navigation.replace('Main');
+            navigation.replace('Main', { author: data.user.uid });
             db.collection('level').doc(data.user.uid).set({
               levelName: 'Kanji của bạn',
               author: data.user.uid
@@ -90,6 +92,7 @@ export default class LoginScreen extends React.Component {
           })
           .catch((data) => console.log(data));
       }
+      this.setState({ loadding: false });
       return { cancelled: true };
     } catch (e) {
       return { error: true };
@@ -97,6 +100,7 @@ export default class LoginScreen extends React.Component {
   }
 
   logInFacebook = async () => {
+    this.setState({ loadding: true });
     try {
       await Facebook.initializeAsync('2936194473145634');
       const {
@@ -110,7 +114,7 @@ export default class LoginScreen extends React.Component {
         firebase.auth().signInWithCredential(credential)
           .then((data) => {
             const { navigation } = this.props;
-            navigation.replace('Main');
+            navigation.replace('Main', { author: data.user.uid });
             db.collection('level').doc(data.user.uid).set({
               levelName: 'Kanji của bạn',
               author: data.user.uid
@@ -124,6 +128,7 @@ export default class LoginScreen extends React.Component {
           })
           .catch((err) => console.log(err));
       } else {
+        this.setState({ loadding: false });
         // type === 'cancel'
       }
     } catch ({ message }) {
@@ -151,23 +156,22 @@ export default class LoginScreen extends React.Component {
     if (loadding === true) return (<this.ComponentIndicator />);
     return (
       <View>
-        
-      <Login>
-        <View style={styles.button}>
-          <Button
-            onPress={this.logInFacebook}
-            title="Tiếp tục đăng nhập bằng Facebook"
-            color="#4267b2"
-          />
-        </View>
-        <View style={styles.button}>
-          <Button
-            onPress={this.signInWithGoogleAsync}
-            title="Tiếp tục đăng nhập bằng Google"
-            color="#e73232"
-          />
-        </View>
-      </Login>
+        <Login>
+          <View style={styles.button}>
+            <Button
+              onPress={this.logInFacebook}
+              title="Tiếp tục đăng nhập bằng Facebook"
+              color="#4267b2"
+            />
+          </View>
+          <View style={styles.button}>
+            <Button
+              onPress={this.signInWithGoogleAsync}
+              title="Tiếp tục đăng nhập bằng Google"
+              color="#e73232"
+            />
+          </View>
+        </Login>
       </View>
     );
   }

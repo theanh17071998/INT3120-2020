@@ -6,13 +6,11 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-export default function WordItem({ text, navigation, object }) {
+export default function WordItem({ text, onPress }) {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      onPress={() => {
-        navigation.navigate('KanjiDetail', object);
-      }}
+      onPress={onPress}
     >
       <View style={styles.container}>
         <Text style={styles.title}>{text}</Text>
