@@ -34,7 +34,7 @@ export default class kanjiGroup extends React.Component {
             <TouchableOpacity onPress={() => {
               navigation.navigate('FavoriteKanjiScreen',
                 {
-                  idGroup: navigation.getParam('idGroup')
+                  userId: navigation.getParam('userId')
                 });
             }}
             >
@@ -58,9 +58,9 @@ export default class kanjiGroup extends React.Component {
 
   componentDidMount = async () => {
     const { navigation } = this.props;
-    const idGroup = navigation.getParam('idGroup');
+    const userId = navigation.getParam('userId');
     const index = navigation.getParam('index');
-    const query = db.collection('kanjiGroups').where('author', '==', index === 4 ? idGroup : index.toString());
+    const query = db.collection('kanjiGroups').where('author', '==', index === 4 ? userId : index.toString());
     const lsGroup = [];
     query.get()
       .then((data) => {

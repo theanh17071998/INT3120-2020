@@ -77,7 +77,7 @@ export default class Levels extends React.Component {
               levelName={item.levelName}
               onPress={() => navigation.navigate('KanjiGroup', {
                 levelName: item.levelName,
-                idGroup: item.id,
+                userId: item.id,
                 index,
                 myKanji: (index <= 4)
               })}

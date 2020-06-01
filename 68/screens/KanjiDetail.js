@@ -4,9 +4,12 @@ import {
   View, Text, ScrollView, StyleSheet,
   Dimensions
 } from 'react-native';
+import firebase from 'firebase';
 
 import Speaker from '../components/Speaker';
 import KanjiPanel from '../components/KanjiPanel';
+
+const db = firebase.firestore();
 
 const deviceWidth = Dimensions.get('window').width;
 const screen = (percent) => deviceWidth * percent / 100;
@@ -32,6 +35,21 @@ class DetailsScreen extends React.Component {
         },
       },
     });
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        kanjiDetail: {}
+      };
+    }
+
+    componentDidMount = () => {
+      const { navigation } = this.props;
+      const id = navigation.getParam('id');
+      db.collection('kanji').doc(id).get().then((kanji) => {
+        this.setState({ kanjiDetail: kanji.data() });
+      });
+    }
 
     render() {
       const { navigation } = this.props;

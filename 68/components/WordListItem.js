@@ -6,7 +6,6 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  YellowBox
 } from 'react-native';
 import rightArrow from '../assets/right-arrow.png';
 import imgEdit from '../assets/edit.png';
@@ -26,10 +25,14 @@ export default function WordListItem(props) {
                 <TouchableOpacity
                   activeOpacity={0.5}
                   onPress={() => {
+                    const { navigation } = props;
+                    const userId = navigation.getParam('userId');
+                    console.log(kanji.item.id);
                     props.navigation.navigate('FavoriteKanjiScreen',
                       {
-                        kanjiId: kanji.item.id,
-                        kanjiGroup: kanji.item,
+                        userId,
+                        kanjiGroupId: kanji.item.id,
+                        kanjiGroupData: kanji.item,
                         edit: true
                       });
                   }}

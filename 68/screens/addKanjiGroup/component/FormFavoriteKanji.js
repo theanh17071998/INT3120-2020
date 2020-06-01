@@ -48,6 +48,7 @@ export default function FormFavoriteKanji(props) {
       setcurrent(currentData);
     } else {
       setcurrent(currentData);
+      reset();
     }
   }
   const { deleteKanji } = props;
@@ -132,11 +133,13 @@ export default function FormFavoriteKanji(props) {
                   color="#006265"
                   raised
                   onPress={() => {
+                    const listOn = amOn.split('|').map((on) => on.concat().toLowerCase());
+                    const listKun = amKun.split('|').map((kun) => kun.concat().toLowerCase());
                     const exam = example.split('|');
                     let dataExam = {};
                     try {
                       if (kanji.length !== 1) throw 1;
-                      if (exam === undefined) throw 1;
+                      if (exam === undefined || exam.length < 3) throw 1;
                       dataExam = {
                         ja: exam[0].concat().toLowerCase(),
                         vi: exam[1].concat().toLowerCase(),
@@ -163,12 +166,13 @@ export default function FormFavoriteKanji(props) {
                       {
                         kanji,
                         hanViet,
+                        listKun,
+                        listOn,
                         amOn,
                         amKun,
                         example,
                         exampleObj: dataExam,
                       });
-                      reset();
                     } else {
                       props.editKanji({
                         kanji
@@ -176,13 +180,15 @@ export default function FormFavoriteKanji(props) {
                       {
                         kanji,
                         hanViet,
-                        amOn,
                         amKun,
+                        amOn,
+                        amOnList: listOn,
+                        amKunList: listKun,
                         example,
                         exampleObj: dataExam,
                       });
                     }
-
+                    reset();
                     // setIsModal(false);
                   }}
                 />
