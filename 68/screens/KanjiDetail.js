@@ -44,7 +44,7 @@ class DetailsScreen extends React.Component {
         <ScrollView>
           <View style={styles.bottomHeader} />
           <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <KanjiPanel kanji={kanji} />
+            <KanjiPanel kanji={kanji}/>
             <View style={styles.KanjiPanelDetail}>
               <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 10 }}>
                 <View>

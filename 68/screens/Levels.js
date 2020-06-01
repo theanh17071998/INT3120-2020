@@ -2,10 +2,14 @@ import React from 'react';
 import {
   StyleSheet,
   FlatList,
-  View
+  View, 
+  Dimensions
 } from 'react-native';
 import firebase from '../config/firebase';
 import CategoryListItem from '../components/CategoryListItem';
+
+const deviceWidth = Dimensions.get('window').width;
+const screen = (percent) => ((deviceWidth * percent) / 100);
 
 
 const db = firebase.firestore();
@@ -87,8 +91,8 @@ export default class Levels extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 30
+    paddingLeft: screen(2),
+    paddingRight: screen(2),
+    paddingTop: screen(4.6)
   }
 });
