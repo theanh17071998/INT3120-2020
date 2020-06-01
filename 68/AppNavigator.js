@@ -11,7 +11,7 @@ import KanjiGroupDetail from './screens/KanjiGroupDetail';
 import KanjiChallenge1 from './screens/KanjiChallenge1';
 import KanjiFlashCards from './screens/KanjiFlashCards';
 import KanjiTests from './screens/KanjiTests';
-import FavoriteKanjiScreen from './screens/FavoriteKanjiScreen';
+import FavoriteKanjiScreen from './screens/addKanjiGroup/index';
 
 const Appnavigator = createStackNavigator({
   Levels: {

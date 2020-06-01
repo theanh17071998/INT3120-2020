@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,31 +6,24 @@ import {
   StyleSheet
 } from 'react-native';
 
-export default class KanjiTest extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      answerStatus : 'default'
-    }
-  }
-  isUnmount = false; 
-  componentWillUnmount = ()=>{
+export default class KanjiTest extends React.Component {
+  isUnmount = false;
+
+  componentWillUnmount = () => {
     this.isUnmount = true;
   }
-  
-  render(){
+
+  render() {
     const { isAnswer, text, nextQuestion } = this.props;
-    const {answerStatus} = this.state;
+    const { answerStatus } = this.state;
     return (
       <TouchableOpacity onPress={() => {
-        if(this.isUnmount === false)
-        this.setState({answerStatus: (isAnswer ? ('answerTrue') : ('answerFalse'))});
+        if (this.isUnmount === false) this.setState({ answerStatus: (isAnswer ? ('answerTrue') : ('answerFalse')) });
         setTimeout(() => {
           if (isAnswer) {
             nextQuestion();
           }
-          if(this.isUnmount === false)
-          this.setState({answerStatus :'default'});
+          if (this.isUnmount === false) this.setState({ answerStatus: 'default' });
         }, 700);
       }}
       >
@@ -40,7 +33,6 @@ export default class KanjiTest extends React.Component{
       </TouchableOpacity>
     );
   }
- 
 }
 const styles = StyleSheet.create({
   container: {
