@@ -36,7 +36,7 @@ export default class KanjiTests extends React.Component {
 
 
   nextQuestion = () => {
-    if (this.isMounted === true) {
+    if (this.isUnmount === false) {
       const { questionIndex } = this.state;
       if (this.isUnmount === false) {
         this.setState({
@@ -51,9 +51,9 @@ export default class KanjiTests extends React.Component {
     const { questionIndex } = this.state;
     const { indexRan } = this.state;
     const { navigation } = this.props;
-    const kanjiList = navigation.getParam('kanjiList');
-    this.answers = kanjiList.map((kanji) => kanji.kanji);
-    this.question = kanjiList.map((kanji) => kanji.kun[0]);
+    const listKanji = navigation.getParam('listKanji');
+    this.answers = listKanji.map((kanji) => kanji.kanji);
+    this.question = listKanji.map((kanji) => kanji.listKun[0]);
     return (
       <View style={styles.container}>
         <View style={styles.top}>

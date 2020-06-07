@@ -30,7 +30,7 @@ export default function kanjiPanel({ kanji }) {
     >
       <View style={styles.KanjiPanel}>
         <View style={styles.centerAlighElement}>
-          <Text>{kanji}</Text>
+          <Text style={{ fontSize: 90, color: '#006265'}}>{kanji}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    fontSize: 90,
   },
   KanjiPanel: {
     width: screen(45),

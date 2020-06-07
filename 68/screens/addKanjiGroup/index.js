@@ -13,7 +13,7 @@ import firebase from 'firebase';
 import WordItem from '../../components/WordItem';
 
 import ModalInputKanji from './component/FormFavoriteKanji';
-import imgEdit from '../../assets/edit.png';
+import imgAdd from '../../assets/icons8-add-100.png';
 // import rightArrow from '../../assets/right-arrow.png';
 
 const db = firebase.firestore();
@@ -49,10 +49,8 @@ export default class FavoriteKanjiScreen extends React.Component {
 
   componentDidMount = () => {
     const { navigation } = this.props;
-    if (navigation.getParam('edit') === true && navigation.getParam('kanjiGroupData') !== undefined) {
-      // console.log("edit banj owi");
-      // const { kanjiId } = navigation.getParam('kanjiId');
-      const kanjiGroup = navigation.getParam('kanjiGroupData');
+    if (navigation.getParam('edit') === true && navigation.getParam('kanjiGroup') !== undefined) {
+      const kanjiGroup = navigation.getParam('kanjiGroup');
       const listKanji = kanjiGroup.listKanji.map((kanji) => (
         db.collection('kanji').doc(kanji.id).get()
       ));
@@ -232,7 +230,7 @@ export default class FavoriteKanjiScreen extends React.Component {
                 activeOpacity={0.5}
                 onPress={this.openModalAddKanji}
               >
-                <Image source={imgEdit} style={styles.editImage} />
+                <Image source={imgAdd} style={styles.editImage} />
               </TouchableOpacity>
             </View>
           </View>
@@ -272,6 +270,12 @@ export default class FavoriteKanjiScreen extends React.Component {
               </View>
             )
         }
+				<View style={styles.button}>
+          <Button
+              title="xóa"
+              color="#4267b2"
+          />
+				</View>
 
       </View>
     );
@@ -299,7 +303,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
   button: {
-    marginHorizontal: 8,
+	  marginTop:10,
+	  marginHorizontal: 8,
   },
   title: {
     flex: 7,
@@ -313,9 +318,9 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
   },
   editImage: {
-    flex: 1,
-    width: 20,
-    height: 20,
+    //flex: 1,
+    width: 30,
+    height: 30,
     marginRight: 20,
     resizeMode: 'stretch',
   },

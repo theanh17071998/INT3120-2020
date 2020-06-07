@@ -19,7 +19,7 @@ function KanjiChallenge({
     }
     setTimeout(() => { setStatus('default'); nextQuestion(); }, 300);
   };
-
+  console.log(kanji)
   return (
     <TouchableOpacity
       onPress={onPress}

@@ -10,13 +10,16 @@ import AppNavigator from './AppNavigator';
 if (!global.btoa) { global.btoa = encode; }
 
 if (!global.atob) { global.atob = decode; }
+
 YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);
 
 const AppContainer = createAppContainer(AppNavigator);
 
 class App extends React.PureComponent {
   constructor(props) {
-    super(props);
+	  super(props);
+	  console.ignoredYellowBox = ['Setting a timer']
+
   }
 
   render() {

@@ -18,17 +18,21 @@ export default class KanjiFlashCards extends React.Component {
       backgroundColor: '#006265',
     },
   });
+  componentDidMount = () => {
+    
+
+  }
 
   render() {
     const { navigation } = this.props;
-    const kanjiList = navigation.getParam('kanjiList');
+    const listKanji = navigation.getParam('listKanji');
     return (
       <ScrollView
         horizontal
       >
         <View style={styles.container}>
           {
-            kanjiList.map((kanji, i) => (<KanjiFlashCard key={i.toString()} kanji={kanji} />))
+            listKanji.map((kanji, i) => (<KanjiFlashCard key={i.toString()} kanji={kanji} />))
           }
         </View>
       </ScrollView>

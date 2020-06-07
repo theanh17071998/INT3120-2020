@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Alert
   // Dimensions
 } from 'react-native';
 import KanjiChallenge from '../components/KanjiChallenge';
@@ -78,6 +79,18 @@ export default class KanjiChallenge1 extends React.Component {
       this.dataRamdom = this.randomData();
     } else {
       clearInterval(this.setInterval);
+      let dung = 0;
+      this.result.forEach(element => {
+        element?dung++:dung+=0;
+      });
+
+      Alert.alert('Thông Báo', `Bạn đã trả lời đúng ${dung}/${this.result.length} câu !!`,
+      [
+        {
+          text: 'OK',
+          onPress: () => this.props.navigation.goBack(),
+        }
+      ]);
       console.log(this.result);
     }
   }
@@ -88,13 +101,13 @@ export default class KanjiChallenge1 extends React.Component {
       if (this.state.progress < 100) {
         if (this.isUnmount === false) {
           this.setState({
-            progress: progress + 0.2
+            progress: progress + 0.5
           });
         }
       } else {
         this.nextQuestion();
       }
-    }, 10);
+    }, 30);
   }
 
   componentWillUnmount = () => {
@@ -102,9 +115,9 @@ export default class KanjiChallenge1 extends React.Component {
   }
 
   render() {
-    const kanjiList = this.props.navigation.getParam('kanjiList');
-    this.listHantu = kanjiList.map((kanji) => kanji.hantu);
-    this.listKanji = kanjiList.map((kanji) => (kanji.kanji));
+    const listKanji = this.props.navigation.getParam('listKanji');
+    this.listHantu = listKanji.map((kanji) => kanji.hanViet);
+    this.listKanji = listKanji.map((kanji) => (kanji.kanji));
     const { questionIndex } = this.state;
     return (
       <View style={styles.container}>
@@ -144,9 +157,10 @@ const styles = StyleSheet.create({
 
   },
   content: {
+    width: '82%',
+    marginHorizontal: "9%",
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
     flexWrap: 'wrap',
   },
   Word: {

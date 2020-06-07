@@ -72,59 +72,25 @@ export default class kanjiGroup extends React.Component {
         lsGroup.sort((a, b) => (a.index - b.index));
         this.setState({ lsGroup });
       });
-    // const { navigation } = this.props;
-    // const idGroup = navigation.getParam('idGroup');
-    // const query = db.collection('kanjiGroups').where('author', '==', idGroup);
-    // const lsGroup = [];
-    // query.get()
-    //   .then((data) => {
-    //     data.forEach((doc) => {
-    //       // doc.data() is never undefined for query doc snapshots
-    //       lsGroup.push(doc.data());
-    //       console.log(doc.data().listKanji.map((kanji) => ({ kanji: kanji.kanji, })));
-    //       // console.log(doc.id, ' => ', doc.data());
-    //     });
-    //     // lsGroup.sort((a, b) => (a.index - b.index));
-    //     this.setState({ lsGroup });
-    //   });
   }
 
   render() {
     const { navigation } = this.props;
-    // const idGroup = navigation.getParam('idGroup');
-
     const { lsGroup } = this.state;
+    console.log(lsGroup)
     return (
       <View style={styles.container}>
-        {/*
-          navigation.getParam('myKanji') ? (
-            <View style={styles.button}>
-              <Button
-                onPress={() => {
-                  navigation.navigate('FavoriteKanjiScreen',
-                    {
-                      lengthGroup: lsGroup.length,
-                      idGroup
-                    });
-                }}
-                title="Thêm nhóm kanji"
-                color="#4267b2"
-              />
-            </View>
-          ) : <View />
-              */}
         <View>
           <FlatList
             data={lsGroup}
-            renderItem={(obj, index) => (
+            renderItem={(group, index) => (
               <WordsListItem
-                kanji={obj}
-                key={index}
+                kanjiGroup={group}
                 navigation={navigation}
                 isMyKanji={navigation.getParam('myKanji') === true}
               />
             )}
-            keyExtractor={(obj, index) => `${index}`}
+            keyExtractor={(group) => `${group.id}`}
           />
         </View>
       </View>

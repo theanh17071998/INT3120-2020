@@ -3,7 +3,10 @@ import {
   StyleSheet,
   Text,
   View,
+  ActivityIndicator
 } from 'react-native';
+import firebase from 'firebase';
+
 import menu from '../assets/menu.png';
 import flashcard from '../assets/wallet.png';
 import test from '../assets/test.png';
@@ -11,6 +14,8 @@ import challenge1 from '../assets/mission.png';
 import challenge2 from '../assets/top.png';
 import KanjiLearn from '../components/KanjiLearn';
 import ProgressComponent from '../components/ProgressComponent';
+
+const db = firebase.firestore();
 
 export default class KanjiLearning extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -28,6 +33,8 @@ export default class KanjiLearning extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      listKanji: [],
+      isLoadding: true,
       images: [
         { id: 1, url: menu, name: 'Kanji chi tiết' },
         { id: 2, url: flashcard, name: 'Học với flashcards' },
@@ -36,12 +43,31 @@ export default class KanjiLearning extends React.Component {
         { id: 5, url: challenge2, name: 'Thử thách kanji 2' }
       ]
     };
-  }
+  } 
 
-  render() {
-    const { images } = this.state;
+  componentDidMount = () => {
     const { navigation } = this.props;
     const groupKanji = navigation.getParam('kanjiGroup');
+    const listkanjiGetFireBase = groupKanji.listKanji.map((kanji) => db.collection('kanji').doc(kanji.id).get());
+    Promise.all(listkanjiGetFireBase).then((lsKanji) => {
+      this.setState({
+        listKanji: lsKanji.map( listKanji => listKanji.data()),
+        isLoadding: false,
+      })
+    });
+  }
+
+  ComponentIndicator = () => (
+    <View style={[styles.containerIndicator, styles.horizontal]}>
+      <ActivityIndicator size="large" color="#0000ff" />
+    </View>
+  )
+
+  render() {
+    const { images, listKanji, isLoadding } = this.state;
+    const { navigation } = this.props;
+    if (isLoadding)
+      return( <this.ComponentIndicator />);
     return (
       <View>
         <View style={styles.persen}>
@@ -62,11 +88,11 @@ export default class KanjiLearning extends React.Component {
           <Text style={styles.number}>90%</Text>
         </View>
         <View style={styles.container}>
-          <KanjiLearn image={images[0]} onPress={() => navigation.navigate('KanjiGroupDetail', { kanjiList: groupKanji.item.kanjiList })} />
-          <KanjiLearn image={images[1]} onPress={() => navigation.navigate('KanjiFlashCards', { kanjiList: groupKanji.item.kanjiList })} />
-          <KanjiLearn image={images[2]} onPress={() => navigation.navigate('KanjiTests', { kanjiList: groupKanji.item.kanjiList })} />
-          <KanjiLearn image={images[3]} onPress={() => navigation.navigate('KanjiChallenge1', { kanjiList: groupKanji.item.kanjiList })} />
-          <KanjiLearn image={images[4]} onPress={() => navigation.navigate('KanjiChallenge1', { kanjiList: groupKanji.item.kanjiList })} />
+          <KanjiLearn image={images[0]} onPress={() => navigation.navigate('KanjiGroupDetail', { listKanji })} />
+          <KanjiLearn image={images[1]} onPress={() => navigation.navigate('KanjiFlashCards', { listKanji })} />
+          <KanjiLearn image={images[2]} onPress={() => navigation.navigate('KanjiTests', { listKanji })} />
+          <KanjiLearn image={images[3]} onPress={() => navigation.navigate('KanjiChallenge1', { listKanji })} />
+          <KanjiLearn image={images[4]} onPress={() => navigation.navigate('KanjiChallenge1', { listKanji })} />
         </View>
       </View>
     );
@@ -99,5 +125,14 @@ const styles = StyleSheet.create({
     width: 190,
     height: 16,
     borderRadius: 15,
+  },
+  containerIndicator: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
   }
 });

@@ -12,13 +12,12 @@ import imgEdit from '../assets/edit.png';
 import WordItem from './WordItem';
 
 export default function WordListItem(props) {
-  const { kanji, isMyKanji } = props;
-  // console.log(kanji);
+  const { kanjiGroup, isMyKanji } = props;
   return (
     <View style={styles.container}>
       <View>
         <View style={styles.header}>
-          <Text style={styles.title}>{kanji ? kanji.item.groupName : 'Kanji'}</Text>
+          <Text style={styles.title}>{kanjiGroup ? kanjiGroup.item.groupName : 'Kanji'}</Text>
           {
             isMyKanji
               ? (
@@ -27,12 +26,10 @@ export default function WordListItem(props) {
                   onPress={() => {
                     const { navigation } = props;
                     const userId = navigation.getParam('userId');
-                    console.log(kanji.item.id);
                     props.navigation.navigate('FavoriteKanjiScreen',
                       {
                         userId,
-                        kanjiGroupId: kanji.item.id,
-                        kanjiGroupData: kanji.item,
+                        kanjiGroup: kanjiGroup.item,
                         edit: true
                       });
                   }}
@@ -46,8 +43,8 @@ export default function WordListItem(props) {
             onPress={() => {
               props.navigation.navigate('KanjiLearning',
                 {
-                  kanjiGroup: kanji,
-                  kanjiLearningName: kanji.groupName
+                  kanjiGroup: kanjiGroup.item,
+                  kanjiLearningName: kanjiGroup.groupName
                 });
             }}
           >
@@ -56,7 +53,7 @@ export default function WordListItem(props) {
         </View>
         <View style={styles.listItem}>
           {
-              kanji.item ? kanji.item.listKanji.map((object, index) => (
+              kanjiGroup.item ? kanjiGroup.item.listKanji.map((object, index) => (
                 <WordItem
                   onPress={() => {
                     props.navigation.navigate('KanjiDetail', { id: object.id });

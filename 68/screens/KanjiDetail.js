@@ -2,7 +2,8 @@
 import * as React from 'react';
 import {
   View, Text, ScrollView, StyleSheet,
-  Dimensions
+  ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import firebase from 'firebase';
 
@@ -39,7 +40,8 @@ class DetailsScreen extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        kanjiDetail: {}
+        kanjiDetail: {},
+        isLoadding: true,
       };
     }
 
@@ -47,17 +49,23 @@ class DetailsScreen extends React.Component {
       const { navigation } = this.props;
       const id = navigation.getParam('id');
       db.collection('kanji').doc(id).get().then((kanji) => {
-        this.setState({ kanjiDetail: kanji.data() });
-      });
+        this.setState({ kanjiDetail: kanji.data(), isLoadding:false });
+	  });
     }
 
-    render() {
-      const { navigation } = this.props;
-      const example = navigation.getParam('example');
-      const on = navigation.getParam('on');
-      const kun = navigation.getParam('kun');
-      const kanji = navigation.getParam('kanji');
+    ComponentIndicator = () => (
+      <View style={[styles.containerIndicator, styles.horizontal]}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    )
 
+    render() {
+      const  { isLoadding } = this.state;
+      const { exampleArray, listOn, listKun, amOnList, kanji, hanViet  } = this.state.kanjiDetail;
+      if(isLoadding)
+       return(
+        <this.ComponentIndicator />
+      );
       return (
         <ScrollView>
           <View style={styles.bottomHeader} />
@@ -70,7 +78,7 @@ class DetailsScreen extends React.Component {
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                   {
-                    kun.map((kunItem, index) => (
+                    listKun.map((kunItem, index) => (
                       <View key={index.toString()}>
                         <Text style={styles.styleLabel}>{kunItem}</Text>
                       </View>
@@ -85,7 +93,7 @@ class DetailsScreen extends React.Component {
                 </View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                   {
-                    on.map((onItem, index) => (
+                    listOn.map((onItem, index) => (
                       <View key={index.toString()}>
                         <Text style={styles.styleLabel}>{onItem}</Text>
                       </View>
@@ -104,9 +112,9 @@ class DetailsScreen extends React.Component {
 
                 <View style={{ flexDirection: 'column', marginTop: 10, height: 280 }}>
                   {
-                    example.map((exampleItem, index) => (
+                    exampleArray.map((exampleItem, index) => (
                       <View style={{ flex: 1 }} key={index.toString()}>
-                        <Text style={{ color: '#006265', fontSize: 12 }}>{exampleItem.hiragana}</Text>
+                        <Text style={{ color: '#006265', fontSize: 12 }}>{exampleItem.hira}</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
                           <Text style={{ color: '#006265', flex: 8, fontSize: 30 }}>{exampleItem.ja}</Text>
                           <Text style={{ color: '#006265', flex: 8 }}>{exampleItem.vi}</Text>
@@ -166,6 +174,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     backgroundColor: '#006265',
     color: 'white'
+  },
+  containerIndicator: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
   }
 });
 export default DetailsScreen;
