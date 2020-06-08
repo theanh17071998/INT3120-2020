@@ -3,8 +3,12 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  Dimensions
 } from 'react-native';
+
+const deviceWidth = Dimensions.get('window').width;
+ const screen = (percent) => deviceWidth * percent / 100;
 
 function KanjiChallenge({
   kanji, isAnswer, setTrueQuestion, nextQuestion
@@ -35,8 +39,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 3,
-    height: 80,
-    width: 80,
+    height: screen(23*82/100),
+    width: screen(23*82/100),
     backgroundColor: 'red',
     borderRadius: 3
   },
@@ -44,8 +48,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 3,
-    height: 80,
-    width: 80,
+    height: screen(23*82/100),
+    width: screen(23*82/100),
     backgroundColor: 'blue',
     borderRadius: 3
   },
@@ -53,8 +57,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 3,
-    height: 80,
-    width: 80,
+    height: screen(23*82/100),
+    width: screen(23*82/100),
     backgroundColor: 'white',
     borderRadius: 3
   },

@@ -233,7 +233,16 @@ export default class FavoriteKanjiScreen extends React.Component {
     });
   }
 
-  render() {
+  backButtonClick = () => {
+    if(this.props.navigation && this.props.navigation.goBack){
+      this.props.navigation.goBack(null);
+      return true;
+    }
+    return false;
+  }
+
+
+  render(){
     // console.log(this.state.lsKanjiDetail);
     const {
       groupName, isModal, listKanji, lsKanjiDetail, currentData, modeEdit
@@ -315,7 +324,7 @@ export default class FavoriteKanjiScreen extends React.Component {
       </View>
     );
   }
-}
+  }
 
 const styles = StyleSheet.create({
   container: {
