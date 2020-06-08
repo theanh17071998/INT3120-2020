@@ -171,7 +171,7 @@ export default function FormFavoriteKanji(props) {
                         amOn,
                         amKun,
                         example,
-                        exampleObj: dataExam,
+                        exampleArray: dataExam,
                       });
                     } else {
                       props.editKanji({
@@ -185,7 +185,7 @@ export default function FormFavoriteKanji(props) {
                         amOnList: listOn,
                         amKunList: listKun,
                         example,
-                        exampleObj: dataExam,
+                        exampleArray: dataExam,
                       });
                     }
                     reset();
