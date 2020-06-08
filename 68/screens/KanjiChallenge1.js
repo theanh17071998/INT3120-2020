@@ -4,14 +4,14 @@ import {
   StyleSheet,
   Text,
   View,
-  Alert
-  // Dimensions
+  Alert,
+  Dimensions
 } from 'react-native';
 import KanjiChallenge from '../components/KanjiChallenge';
 import ProgressComponent from '../components/ProgressComponent';
 
-// const deviceWidth = Dimensions.get('window').width;
-// const screen = (percent) => deviceWidth * percent / 100;
+ const deviceWidth = Dimensions.get('window').width;
+ const screen = (percent) => deviceWidth * percent / 100;
 
 export default class KanjiChallenge1 extends React.Component {
   static navigationOptions = () => ({
@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
 
   },
   content: {
-    width: '82%',
-    marginHorizontal: "9%",
+    width: screen(82),
+    marginHorizontal: screen(9),
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
