@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert,
   // Dimensions
 } from 'react-native';
 import firebase from 'firebase';
@@ -13,7 +14,7 @@ import firebase from 'firebase';
 import WordItem from '../../components/WordItem';
 
 import ModalInputKanji from './component/FormFavoriteKanji';
-import imgEdit from '../../assets/edit.png';
+import imgAdd from '../../assets/icons8-add-100.png';
 // import rightArrow from '../../assets/right-arrow.png';
 
 const db = firebase.firestore();
@@ -49,10 +50,8 @@ export default class FavoriteKanjiScreen extends React.Component {
 
   componentDidMount = () => {
     const { navigation } = this.props;
-    if (navigation.getParam('edit') === true && navigation.getParam('kanjiGroupData') !== undefined) {
-      // console.log("edit banj owi");
-      // const { kanjiId } = navigation.getParam('kanjiId');
-      const kanjiGroup = navigation.getParam('kanjiGroupData');
+    if (navigation.getParam('edit') === true && navigation.getParam('kanjiGroup') !== undefined) {
+      const kanjiGroup = navigation.getParam('kanjiGroup');
       const listKanji = kanjiGroup.listKanji.map((kanji) => (
         db.collection('kanji').doc(kanji.id).get()
       ));
@@ -136,6 +135,45 @@ export default class FavoriteKanjiScreen extends React.Component {
         console.error('Error removing document: ', error);
       });
   }
+  DeleteKanjiGroup = () => {
+    Alert.alert('Thông Báo', `Bạn có chắc chắn muốn xóa nhóm chữ kanji này`,
+    [
+      {
+        text: 'Có',
+        onPress: () => {
+          this.ApiDeleteKanjiGroup()
+        }
+      },
+      {
+        text: 'Không',
+        //onPress: () => navigation.goBack(),
+      }
+    ]);
+  }
+
+  ApiDeleteKanjiGroup = () => {
+    const { navigation } = this.props;
+    const kanjiGroup = navigation.getParam('kanjiGroup');
+    db.collection("kanjiGroups").doc(kanjiGroup.id).delete().then(() => {
+      console.log("Document successfully deleted!");
+      Alert.alert('Thông Báo', 'Document successfully deleted!',
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.goBack(),
+          }
+        ]);
+    }).catch((error) => {
+        console.error("Error removing document: ", error);
+        Alert.alert('Thông Báo', `Error removing document: ${error}`,
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.goBack(),
+          }
+        ]);
+    });
+  }
 
   ApiAddKanjiGroup = () => {
     const { navigation } = this.props;
@@ -144,10 +182,6 @@ export default class FavoriteKanjiScreen extends React.Component {
       listKanji, groupName,
     } = this.state;
     this.setState({ currentData: undefined });
-
-    // const lsKanjiRef = lsKanjiDetail.map((kanjiDetail) =>
-    //   db.collection('kanji').add(kanjiDetail));
-
     db.collection('kanjiGroups').add({
       groupName,
       author: userId,
@@ -164,15 +198,12 @@ export default class FavoriteKanjiScreen extends React.Component {
 
   ApiEditKanjiGroup = () => {
     const { navigation } = this.props;
-    const kanjiGroupId = navigation.getParam('kanjiGroupId');
+    const kanjiGroup = navigation.getParam('kanjiGroup');
     // const userId = navigation.getParam('userId');
     const {
       listKanji, groupName, author, index, order
     } = this.state;
-    console.log(`id ${kanjiGroupId}`);
-    // const lsKanjiRef = lsKanjiDetail.map((kanjiDetail, i) =>
-    //  (db.collection('kanji').doc(listKanji[i].id).set(kanjiDetail)));
-    db.collection('kanjiGroups').doc(kanjiGroupId).set({
+    db.collection('kanjiGroups').doc(kanjiGroup.id).set({
       groupName,
       listKanji,
       order,
@@ -180,6 +211,7 @@ export default class FavoriteKanjiScreen extends React.Component {
       author,
     }).then(() => {
       console.log('Document successfully written! ');
+      navigation.goBack();
     })
       .catch((err) => {
         console.log(err);
@@ -232,7 +264,7 @@ export default class FavoriteKanjiScreen extends React.Component {
                 activeOpacity={0.5}
                 onPress={this.openModalAddKanji}
               >
-                <Image source={imgEdit} style={styles.editImage} />
+                <Image source={imgAdd} style={styles.editImage} />
               </TouchableOpacity>
             </View>
           </View>
@@ -272,6 +304,13 @@ export default class FavoriteKanjiScreen extends React.Component {
               </View>
             )
         }
+				<View style={styles.button}>
+          <Button
+            onPress={this.DeleteKanjiGroup}
+              title="xóa"
+              color="#E73232"
+          />
+				</View>
 
       </View>
     );
@@ -299,7 +338,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
   button: {
-    marginHorizontal: 8,
+	  marginTop:10,
+	  marginHorizontal: 8,
   },
   title: {
     flex: 7,
@@ -313,9 +353,9 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
   },
   editImage: {
-    flex: 1,
-    width: 20,
-    height: 20,
+    //flex: 1,
+    width: 30,
+    height: 30,
     marginRight: 20,
     resizeMode: 'stretch',
   },

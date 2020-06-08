@@ -14,7 +14,9 @@ const db = firebase.firestore();
 
 const deviceWidth = Dimensions.get('window').width;
 const screen = (percent) => (deviceWidth * percent) / 100;
-
+console.ignoredYellowBox = [
+'Setting a timer'
+];
 export default class LoginScreen extends React.Component {
   static navigationOptions = () => ({
     title: 'Login',

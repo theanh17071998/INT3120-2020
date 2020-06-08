@@ -8,6 +8,13 @@ import {
 
 export default class KanjiTest extends React.Component {
   isUnmount = false;
+  constructor(props){
+    super(props);
+    this.state = {
+      answerStatus: ''
+    }
+
+  }
 
   componentWillUnmount = () => {
     this.isUnmount = true;

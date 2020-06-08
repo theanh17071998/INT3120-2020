@@ -13,7 +13,7 @@ export default function KanjiFlashCard({ kanji }) {
           <Text style={styles.kanjiFont}>{kanji.kanji}</Text>
         </View>
         <View>
-          <Text style={styles.Vi}>{kanji.hantu}</Text>
+          <Text style={styles.Vi}>{kanji.hanViet}</Text>
         </View>
         <View style={styles.OnKun}>
           <Text>シュウ  ジュ</Text>

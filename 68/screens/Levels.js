@@ -21,34 +21,12 @@ export default class Levels extends React.Component {
       color: '#006265',
     },
     headerTintColor: '#006265',
-    // navigationOptions: { header: { visible: false } }
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      level: [
-        // {
-        //   id: '0',
-        //   levelName: 'Sơ cấp 1',
-        // },
-        // {
-        //   id: '1',
-        //   levelName: 'Sơ cấp 1',
-        // },
-        // {
-        //   id: '2',
-        //   levelName: 'Tiền trung cấp 1',
-        // },
-        // {
-        //   id: '3',
-        //   levelName: 'Tiền trung cấp 1',
-        // },
-        // {
-        //   id: '4',
-        //   levelName: 'kanji của bạn',
-        // },
-      ]
+      level: []
     };
   }
 
@@ -70,7 +48,6 @@ export default class Levels extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    // const idGroup = navigation.getParam('author');
     const { level } = this.state;
     return (
       <View style={styles.container}>
