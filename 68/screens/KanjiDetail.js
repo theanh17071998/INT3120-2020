@@ -62,6 +62,7 @@ class DetailsScreen extends React.Component {
     render() {
       const  { isLoadding } = this.state;
       const { exampleArray, listOn, listKun, amOnList, kanji, hanViet  } = this.state.kanjiDetail;
+      console.log(exampleArray)
       if(isLoadding)
        return(
         <this.ComponentIndicator />
