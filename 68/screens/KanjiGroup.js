@@ -56,7 +56,7 @@ export default class kanjiGroup extends React.Component {
     };
   }
 
-  componentDidMount = async () => {
+  fetchAPI = () => {
     const { navigation } = this.props;
     const userId = navigation.getParam('userId');
     const index = navigation.getParam('index');
@@ -72,6 +72,19 @@ export default class kanjiGroup extends React.Component {
         lsGroup.sort((a, b) => (a.index - b.index));
         this.setState({ lsGroup });
       });
+  }
+
+  componentDidMount = async () => {
+    this.fetchAPI();
+    this.willFocusSubscription = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.fetchAPI();
+      }
+    );
+  }
+  componentWillUnmount = () => {
+    this.willFocusSubscription.remove();
   }
 
   render() {
