@@ -90,7 +90,6 @@ export default class kanjiGroup extends React.Component {
   render() {
     const { navigation } = this.props;
     const { lsGroup } = this.state;
-    console.log(lsGroup)
     return (
       <View style={styles.container}>
         <View>

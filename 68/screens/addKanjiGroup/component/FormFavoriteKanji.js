@@ -103,7 +103,7 @@ export default function FormFavoriteKanji(props) {
                 style={styles.textInput}
                 value={amOn}
                 onChangeText={(value) => setAmOn(value)}
-                placeholder="Nhập âm on ngăn cách nhau bởi dấu phẩy"
+                placeholder="Nhập âm on ngăn cách nhau bởi dấu |"
               />
             </View>
             <View style={styles.contentInput}>
@@ -112,7 +112,7 @@ export default function FormFavoriteKanji(props) {
                 style={styles.textInput}
                 value={amKun}
                 onChangeText={(value) => setAmKun(value)}
-                placeholder="Nhập âm kun ngăn cách nhau bởi dẩu phẩy"
+                placeholder="Nhập âm kun ngăn cách nhau bởi dấu |"
               />
             </View>
             <View style={styles.contentInput}>
