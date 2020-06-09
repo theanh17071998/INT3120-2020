@@ -38,7 +38,7 @@ export default class ProfileScreen extends React.Component {
       if (user) {
         this.setState({ infoUser: user });
       } else {
-        // No user is signed in.
+        // No user is signed in
       }
     });
   }

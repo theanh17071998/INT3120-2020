@@ -19,7 +19,7 @@ const db = firebase.firestore();
 
 export default class KanjiLearning extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam('kanjiLearningName'),
+    title: 'Kanji cơ bản 1',
     headerTitleAlign: 'center',
     headerTitleStyle: {
       color: 'white',

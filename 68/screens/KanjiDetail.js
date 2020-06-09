@@ -16,7 +16,7 @@ const deviceWidth = Dimensions.get('window').width;
 const screen = (percent) => deviceWidth * percent / 100;
 class DetailsScreen extends React.Component {
     static navigationOptions = () => ({
-      title: 'Kanji Chi Tiết',
+      title: 'Kanji cơ bản 1',
       headerTitleAlign: 'center',
 
       headerTitleStyle: {

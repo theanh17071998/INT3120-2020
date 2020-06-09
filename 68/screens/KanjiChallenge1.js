@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
 
   },
   content: {
-    width: screen(82),
-    marginHorizontal: screen(9),
+    width: screen(90),
+    marginHorizontal: screen(10),
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
