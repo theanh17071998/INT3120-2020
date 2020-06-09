@@ -51,10 +51,14 @@ export default class FavoriteKanjiScreen extends React.Component {
   // componentWillMount = () => {
    
   // }
-
+  willFocusSubscription = this.props.navigation.addListener(
+    'didBlur',
+    () => {
+      console.log('back');
+    }
+  );
 
   componentDidMount = () => {
-    BackHandler.addEventListener('hardwareBackPress', this.backButtonClick);
     const { navigation } = this.props;
     if (navigation.getParam('edit') === true && navigation.getParam('kanjiGroup') !== undefined) {
       const kanjiGroup = navigation.getParam('kanjiGroup');
@@ -77,12 +81,12 @@ export default class FavoriteKanjiScreen extends React.Component {
   }
 
   componentWillUnmount = () => {
-    BackHandler.removeEventListener('hardwareBackPress', this.backButtonClick);
+    this.willFocusSubscription.remove();
   }
 
   backButtonClick = () => {
     if(this.props.navigation && this.props.navigation.goBack){
-      this.props.navigation.goBack(null);
+      //this.props.navigation.goBack(null);
       console.log("ádasdasd")
       return true;
     }

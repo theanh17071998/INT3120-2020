@@ -62,6 +62,7 @@ class DetailsScreen extends React.Component {
     render() {
       const  { isLoadding } = this.state;
       const { exampleArray, listOn, listKun, amOnList, kanji, hanViet  } = this.state.kanjiDetail;
+      console.log(exampleArray)
       if(isLoadding)
        return(
         <this.ComponentIndicator />
@@ -103,20 +104,20 @@ class DetailsScreen extends React.Component {
                 </View>
               </View>
 
-              <View style={{ marginTop: 20, marginLeft: 10 }}>
+              <View style={{ marginTop: 30, marginLeft: 10 }}>
                 <View>
                   <Text style={{ color: 'red' }}>
                     Ví Dụ
                   </Text>
                 </View>
 
-                <View style={{ flexDirection: 'column', marginTop: 10, height: 280 }}>
+                <View style={{ flexDirection: 'column', marginTop: 10, }}>
                   {
                     exampleArray.map((exampleItem, index) => (
-                      <View style={{ flex: 1 }} key={index.toString()}>
+                      <View style={{ flex: 1, marginBottom: 10 }} key={index.toString()}>
                         <Text style={{ color: '#006265', fontSize: 12 }}>{exampleItem.hira}</Text>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
-                          <Text style={{ color: '#006265', flex: 8, fontSize: 30 }}>{exampleItem.ja}</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                          <Text style={{ color: '#006265', flex: 6, fontSize: 30, height:40, lineHeight:36, paddingTop:0 }}>{exampleItem.ja}</Text>
                           <Text style={{ color: '#006265', flex: 8 }}>{exampleItem.vi}</Text>
                           <Speaker Text={exampleItem.ja} />
 
@@ -152,7 +153,6 @@ const styles = StyleSheet.create({
   },
   KanjiPanelDetail: {
     width: '90%',
-    height: screen(120),
     marginTop: 20,
     paddingHorizontal: 8,
     paddingTop: 15,

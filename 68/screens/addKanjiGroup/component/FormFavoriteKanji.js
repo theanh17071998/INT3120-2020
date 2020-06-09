@@ -103,7 +103,7 @@ export default function FormFavoriteKanji(props) {
                 style={styles.textInput}
                 value={amOn}
                 onChangeText={(value) => setAmOn(value)}
-                placeholder="Nhập âm on ngăn cách nhau bởi dấu phẩy"
+                placeholder="Nhập âm on ngăn cách nhau bởi dấu |"
               />
             </View>
             <View style={styles.contentInput}>
@@ -112,7 +112,7 @@ export default function FormFavoriteKanji(props) {
                 style={styles.textInput}
                 value={amKun}
                 onChangeText={(value) => setAmKun(value)}
-                placeholder="Nhập âm kun ngăn cách nhau bởi dẩu phẩy"
+                placeholder="Nhập âm kun ngăn cách nhau bởi dấu |"
               />
             </View>
             <View style={styles.contentInput}>
@@ -135,16 +135,20 @@ export default function FormFavoriteKanji(props) {
                   onPress={() => {
                     const listOn = amOn.split('|').map((on) => on.concat().toLowerCase());
                     const listKun = amKun.split('|').map((kun) => kun.concat().toLowerCase());
-                    const exam = example.split('|');
-                    let dataExam = {};
+                    const listExample = example.split('\n');
+                    let exampleArray = [];
                     try {
                       if (kanji.length !== 1) throw 1;
-                      if (exam === undefined || exam.length < 3) throw 1;
-                      dataExam = {
-                        ja: exam[0].concat().toLowerCase(),
-                        vi: exam[1].concat().toLowerCase(),
-                        hira: exam[2].concat().toLowerCase(),
-                      };
+                      exampleArray = listExample.map(examStr => {
+                        const exam = examStr.split('|');
+                      
+                          if (exam === undefined || exam.length < 3) throw 2;
+                          return( {
+                            ja: exam[0].concat().toLowerCase(),
+                            vi: exam[1].concat().toLowerCase(),
+                            hira: exam[2].concat().toLowerCase(),
+                          });
+                      });
                     } catch (err) {
                       const errMes = err === 1 ? 'Trường hán tự chỉ được chứa 1 kí tự chữ hán !' : 'Dữ liệu nhập vào trường ví dụ chưa hợp lệ! Xin vui lòng nhập lại.';
                       Alert.alert('Thông Báo', errMes,
@@ -155,7 +159,6 @@ export default function FormFavoriteKanji(props) {
                           }
                         ]);
                       setExample('');
-                      dataExam = {};
                       return;
                     }
 
@@ -171,7 +174,7 @@ export default function FormFavoriteKanji(props) {
                         amOn,
                         amKun,
                         example,
-                        exampleArray: dataExam,
+                        exampleArray,
                       });
                     } else {
                       props.editKanji({
@@ -182,10 +185,10 @@ export default function FormFavoriteKanji(props) {
                         hanViet,
                         amKun,
                         amOn,
-                        amOnList: listOn,
-                        amKunList: listKun,
+                        listKun,
+                        listOn,
                         example,
-                        exampleArray: dataExam,
+                        exampleArray,
                       });
                     }
                     reset();
